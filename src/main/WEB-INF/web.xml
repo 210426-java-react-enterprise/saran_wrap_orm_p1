@@ -6,7 +6,7 @@
         version="2.5">
     <servlet>
         <servlet-name>userServlet</servlet-name>
-        <servlet-class>com.revature.project0.servlet.UserServlet</servlet-class>
+        <servlet-class>com.revature.project1.servlet.UserServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
