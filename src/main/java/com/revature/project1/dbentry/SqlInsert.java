@@ -45,6 +45,12 @@ public class SqlInsert {
             names.setAccessible(false);
         }
 
+        //Create the sql string
+        String sqlInsert = "Insert into ";
+        //sqlInset + tableName
+        //SqlInsert + ( + all column names + )
+        //SqlInsert values ( + all vales + )
+
 
 
         //Create key pairs of annotation and fields x
