@@ -3,25 +3,27 @@ package com.revature.project1.dbentry;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Stream;
 
 public class SqlInsert {
 
-    public void insertNewObject(Object obj){
+    public void insertNewObject(Object obj) throws IllegalAccessException {
 
         //prints the class of the obj
         Class<?> clazz = obj.getClass();
 
         //prints the fields of the class
         Field[] declaredClassFields = clazz.getDeclaredFields();
-        printMembers(declaredClassFields, "Declared Fields");
+
 
         ArrayList<Field> columnNames = new ArrayList<>();
 
         //prints the annotations of each field
         for(Field fields: declaredClassFields){
             Annotation[] fieldAnnotations = fields.getAnnotations();
-            printMembers(fieldAnnotations, "Annotations");
+
             for (Annotation anno: fieldAnnotations){
 
                 String annoName = anno.annotationType().getSimpleName();
@@ -32,10 +34,20 @@ public class SqlInsert {
             }
         }
 
+        //Mapped the column names and their values
+        Map<String, Object> columnValues = new HashMap<String, Object>();
+
         for(Field names: columnNames){
-            System.out.println("ColumnName: " + names.getName());
+            names.setAccessible(true);
+            columnValues.put(names.getName(), names.get(obj));
+            System.out.println("Field Value: " + names.get(obj));
+            System.out.println("Map value: " + columnValues.get(names.getName()));
+            names.setAccessible(false);
         }
-        //Create key pairs of annotation and fields
+
+
+
+        //Create key pairs of annotation and fields x
         //Use a stream to filter for table name
         //Use a stream to filter for all column names
     }
