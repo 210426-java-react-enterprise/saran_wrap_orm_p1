@@ -1,22 +1,28 @@
 package com.revature.project1.models;
 
-//@Entity
-//@Table(name = "transaction")
+//@Table
+//@Entity(name = "transaction")
 public class UserTransactionHistory {
     //@Id
     //@Column(name = "user_id")
     private int userId;
+
     //@Column(name = "transaction_id", nullable = false)
     private int transactionId;
-    //@Column(name = "transactionType", nullable = false)
+
+    //@Column(name = "transaction_type", nullable = false)
     private String transactionType;
-    //@Column(name = "transactionAmount", nullable = false)
+
+    //@Column(name = "transaction_amount", nullable = false)
     private double transactionAmount;
-    //@Column(name = "transactionDate", nullable = false)
+
+    //@Column(name = "transaction_date", nullable = false)
     private String transactionDate;
-    //@Column(name = "accountType, nullable = false)
+
+    //@Column(name = "account_type, nullable = false)
     private String accountType;
-    //@Column(name = "accountId")
+
+    //@Column(name = "account_id,, nullable = false")
     private int accountId;
 
     public UserTransactionHistory() {
