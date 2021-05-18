@@ -15,7 +15,7 @@
     </servlet-mapping>
 
     <listener>
-        <listener-class>com.revature..servlet.DependencyLoaderListener</listener-class>
+        <listener-class>com.revature.servlet.DependencyLoaderListener</listener-class>
     </listener>
 
 </web-app>
