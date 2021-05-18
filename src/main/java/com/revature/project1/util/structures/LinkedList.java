@@ -113,18 +113,6 @@ public class LinkedList<T> implements List<T>, Queue<T>, Iterable<T> {
     public int size() {
         return size;
     }
-    //prints all the nodes in our linked list
-    public void printLinkedList() {
-        Node current = head;
-        if (head == null) {
-            System.out.println("Doubly linked list is empty");
-            return;
-        }
-        while(current != null){
-            System.out.println(current.data+" ");
-            current = current.nextNode;
-        }
-    }
 
     // TODO fix broken logic
     @Override
