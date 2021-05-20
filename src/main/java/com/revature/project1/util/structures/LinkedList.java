@@ -109,6 +109,11 @@ public class LinkedList<T> implements List<T>, Queue<T>, Iterable<T> {
         return false;
     }
 
+    @Override
+    public int size() {
+        return size;
+    }
+
 
     // TODO fix broken logic
     @Override
