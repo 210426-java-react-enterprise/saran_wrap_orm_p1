@@ -8,4 +8,6 @@ import java.lang.annotation.*;
 public @interface Column {
     String name() default
             "";
+    boolean nullable() default
+            false;
 }
