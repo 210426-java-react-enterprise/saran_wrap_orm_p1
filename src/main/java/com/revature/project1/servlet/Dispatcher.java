@@ -13,13 +13,13 @@ public class Dispatcher {
         switch (req.getRequestURI()) {
             // /registration.data, /authentication.data, /transaction.data, /delete.data
             // based on /pattern in web.xml file
-            case "p0/registration.data":
+            case "saranwrap/registration.data":
                 break;
-            case "p0/authentication.data":
+            case "saranwrap/authentication.data":
                 break;
-            case "p0/transaction.data":
+            case "saranwrap/transaction.data":
                 break;
-            case "p0/delete.data":
+            case "saranwrap/delete.data":
                 break;
             default:
                 resp.setStatus(400);
