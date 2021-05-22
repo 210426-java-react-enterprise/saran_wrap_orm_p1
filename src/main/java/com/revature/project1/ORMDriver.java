@@ -2,6 +2,7 @@ package com.revature.project1;
 
 import com.revature.project1.dbentry.SqlCreation;
 import com.revature.project1.dbentry.SqlInsert;
+import com.revature.project1.dbentry.SqlSelect;
 import com.revature.project1.models.AppUser;
 
 public class ORMDriver {
@@ -11,5 +12,8 @@ public class ORMDriver {
         SqlInsert insertTest = new SqlInsert();
 
         insertTest.insertNewObject(userObj);
+
+        SqlSelect selectTest = new SqlSelect();
+        selectTest.selectObject(userObj);
     }
 }
