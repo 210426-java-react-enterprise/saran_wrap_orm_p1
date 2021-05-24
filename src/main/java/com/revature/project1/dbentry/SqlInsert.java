@@ -12,7 +12,10 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class SqlInsert {
+public class SqlInsert extends SqlCrud{
+    public SqlInsert() {
+        action = "insert into";
+    }
 
     public void insertNewObject(Object obj, Connection conn) throws IllegalAccessException {
 
@@ -73,7 +76,7 @@ public class SqlInsert {
         //Use a stream to filter for all column names
     }
 
-    //Wezeley's method to print all members
+    //Wezley's method to print all members
     private void printMembers(Object[] members, String memberType) {
         if (members.length != 0) {
             System.out.println("\t" + memberType + " on class: ");

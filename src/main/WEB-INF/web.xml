@@ -11,11 +11,26 @@
 
     <servlet-mapping>
         <servlet-name>userServlet</servlet-name>
-        <url-pattern>/user</url-pattern>
+        <url-pattern>/registration</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>userServlet</servlet-name>
+        <url-pattern>/authentication</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>userServlet</servlet-name>
+        <url-pattern>/transaction</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>userServlet</servlet-name>
+        <url-pattern>/delete</url-pattern>
     </servlet-mapping>
 
     <listener>
-        <listener-class>com.revature.servlet.DependencyLoaderListener</listener-class>
+        <listener-class>com.revature.project1.servlet.DependencyLoaderListener</listener-class>
     </listener>
 
 </web-app>

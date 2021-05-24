@@ -114,7 +114,6 @@ public class LinkedList<T> implements List<T>, Queue<T>, Iterable<T> {
         return size;
     }
 
-
     // TODO fix broken logic
     @Override
     public Iterator<T> iterator() {

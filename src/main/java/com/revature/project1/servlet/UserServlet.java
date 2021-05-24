@@ -10,20 +10,28 @@ public class UserServlet extends HttpServlet {
 
     private Dispatcher dispatcher = new Dispatcher();
 
-    //post CREATE
+    //post CREATE - INSERT
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {}
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        dispatcher.dispatch(req, resp);
+    }
 
-    //get READ
+    //get READ - SELECT
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {}
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        dispatcher.dispatch(req, resp);
+    }
 
-    //put UPDATE
+    //put UPDATE - UPDATE
     @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {}
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        dispatcher.dispatch(req, resp);
+    }
 
-    //delete DELETE
+    //delete DELETE - DELETE
     @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {}
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        dispatcher.dispatch(req, resp);
+    }
 
 }
