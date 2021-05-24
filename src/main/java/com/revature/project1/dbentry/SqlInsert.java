@@ -5,16 +5,16 @@ import com.revature.project1.annotations.Entity;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class SqlInsert {
 
-    public void insertNewObject(Object obj) throws IllegalAccessException {
+    public void insertNewObject(Object obj, Connection conn) throws IllegalAccessException {
 
         //Gets the class of the obj and uses the annotation to get the table name
         Class<?> clazz = obj.getClass();
@@ -60,6 +60,13 @@ public class SqlInsert {
 
 
         System.out.println("Sql String: " + sqlInsert);
+
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(sqlInsert);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         //Create key pairs of annotation and fields x
         //Use a stream to filter for table name
