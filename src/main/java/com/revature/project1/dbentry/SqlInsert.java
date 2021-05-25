@@ -19,6 +19,10 @@ public class SqlInsert extends SqlCrud{
 
     public void insertNewObject(Object obj, Connection conn) throws IllegalAccessException {
 
+        setStatement(obj);
+        System.out.println(statement);
+
+        /*
         //Gets the class of the obj and uses the annotation to get the table name
         Class<?> clazz = obj.getClass();
         Annotation[] classAnnotation = clazz.getAnnotations();
@@ -71,9 +75,7 @@ public class SqlInsert extends SqlCrud{
             e.printStackTrace();
         }
 
-        //Create key pairs of annotation and fields x
-        //Use a stream to filter for table name
-        //Use a stream to filter for all column names
+            */
     }
 
     //Wezley's method to print all members
