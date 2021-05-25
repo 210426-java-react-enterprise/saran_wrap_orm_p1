@@ -12,6 +12,8 @@ public class ORMDriver {
 
         Object userObj = new AppUser("gtomasel", "Passw0rd", "Email@mail.com", "Giancarlo", "Lastname", 23);
         SqlInsert insertTest = new SqlInsert();
+        insertTest.setStatement(userObj);
+        insertTest.getStatement();
 
         //INSERT
 //        try(Connection conn = ConnectionFactory.getInstance().getConnection()){

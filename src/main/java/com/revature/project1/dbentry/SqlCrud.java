@@ -1,11 +1,16 @@
 package com.revature.project1.dbentry;
 
+import com.revature.project1.annotations.Column;
 import com.revature.project1.annotations.Entity;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public abstract class SqlCrud {
     protected Object obj;
@@ -89,12 +94,24 @@ public abstract class SqlCrud {
     }
 
     public void setColumnNamesAndValues() throws IllegalAccessException {
+
+
+        //Get all the names of fields taged with Column
+       List<String> names = Stream.of(clazz.getDeclaredFields())
+                .filter(e -> e.getAnnotation(Column.class).annotationType().getSimpleName().equals("Column"))
+                .map(e -> e.getName())
+                .collect(Collectors.toList());
+       for (Object name: names){
+           columnNames.add(String.valueOf(name));
+       }
+
+
         //Get all the fields in the pojo
         for (Field fields : clazz.getDeclaredFields()) {
 
             for (Annotation anno: fields.getAnnotations()){
                 if(anno.annotationType().getSimpleName().equals("Column")){
-                    columnNames.add(fields.getName());
+                   // columnNames.add(fields.getName());
                     fields.setAccessible(true);
                     columnValues.add(fields.get(obj).toString());
                     fields.setAccessible(false);
