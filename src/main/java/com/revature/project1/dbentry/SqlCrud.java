@@ -35,10 +35,10 @@ public abstract class SqlCrud {
             case "insert into":
                 String s1 = ""; // "column1, column2, column3, ..."
                 String s2 = ""; // "value1, value2, value3, ..."
-                for (int i = 0; i < columnNames.size()-1; i++) {
+                for (int i = 0; i < columnNames.size(); i++) {
                     s1 += columnNames.get(i);
                     s2 += columnValues.get(i);
-                    if (i < columnNames.size()-2) {
+                    if (i < columnNames.size()-1) {
                         s1 += ", ";
                         s2 += ", ";
                     }
@@ -52,9 +52,9 @@ public abstract class SqlCrud {
                 break;
             case "update":
                 String s = ""; // "column1=value1, column2=value2, ..."
-                for (int i = 0; i < columnNames.size()-1; i++) {
+                for (int i = 0; i < columnNames.size(); i++) {
                     s += columnNames.get(i) + "=" + columnValues.get(i);
-                    if (i < columnNames.size()-2) {
+                    if (i < columnNames.size()-1) {
                         s += ", ";
                     }
                 }
@@ -99,25 +99,51 @@ public abstract class SqlCrud {
         //Get all the names of fields taged with Column
        List<String> names = Stream.of(clazz.getDeclaredFields())
                 .filter(e -> e.getAnnotation(Column.class).annotationType().getSimpleName().equals("Column"))
-                .map(e -> e.getName())
+                .map(Field::getName)
                 .collect(Collectors.toList());
+
        for (Object name: names){
            columnNames.add(String.valueOf(name));
        }
 
 
-        //Get all the fields in the pojo
-        for (Field fields : clazz.getDeclaredFields()) {
+       List<String> values = Stream.of(clazz.getDeclaredFields())
+                        .filter(e -> e.getAnnotation(Column.class).annotationType().getSimpleName().equals("Column"))
+                        .map(e -> getValueofField(e))
+                        .collect(Collectors.toList());
 
-            for (Annotation anno: fields.getAnnotations()){
-                if(anno.annotationType().getSimpleName().equals("Column")){
-                   // columnNames.add(fields.getName());
-                    fields.setAccessible(true);
-                    columnValues.add(fields.get(obj).toString());
-                    fields.setAccessible(false);
-                }
-            }
+
+
+        for (Object value: values){
+            columnValues.add(String.valueOf(value));
         }
+
+//        //Get all the fields in the pojo
+//        for (Field fields : clazz.getDeclaredFields()) {
+//
+//            for (Annotation anno: fields.getAnnotations()){
+//                if(anno.annotationType().getSimpleName().equals("Column")){
+//                   // columnNames.add(fields.getName());
+//                    fields.setAccessible(true);
+//                    columnValues.add(fields.get(obj).toString());
+//                    fields.setAccessible(false);
+//                }
+//            }
+//        }
+    }
+
+    public String getValueofField(Field e){
+
+        String temp = "";
+        e.setAccessible(true);
+        try {
+         temp =  e.get(obj).toString();
+        } catch (IllegalAccessException illegalAccessException) {
+            illegalAccessException.printStackTrace();
+        }
+        e.setAccessible(false);
+
+        return temp;
     }
 
     public String getStatement() {
