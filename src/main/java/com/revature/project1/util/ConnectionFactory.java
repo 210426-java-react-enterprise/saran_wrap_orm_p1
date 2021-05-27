@@ -1,6 +1,9 @@
 package com.revature.project1.util;
 
 
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -46,30 +49,31 @@ public class ConnectionFactory {
             e.printStackTrace();
         }
          */
+
+        try{
+
+            props.load(new FileReader("WEB-INF/application.properties"));
+        } catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     public Connection getConnection(){
         Connection conn = null;
         try{
-            /*
-            conn = DriverManager.getConnection(
-                    System.getenv("host-url"),
-                    System.getenv("username"),
-                    System.getenv("password")
-            );
-            */
-
             conn = DriverManager.getConnection(
                     System.getenv("host-url"),
                     System.getenv("username"),
                     System.getenv("password")
             );
 
+            conn.setAutoCommit(false);
 
         }catch(SQLException sqle){
             sqle.printStackTrace();
 
         }
+
         return conn;
     }
 }

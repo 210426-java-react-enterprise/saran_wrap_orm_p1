@@ -7,6 +7,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -22,60 +23,18 @@ public class SqlInsert extends SqlCrud{
         setStatement(obj);
         System.out.println(statement);
 
-        /*
-        //Gets the class of the obj and uses the annotation to get the table name
-        Class<?> clazz = obj.getClass();
-        Annotation[] classAnnotation = clazz.getAnnotations();
-        String tableName = "";
-        for(Annotation annotation : classAnnotation){
-            if (annotation.annotationType().getSimpleName().equals("Entity")) {
-                Entity test = (Entity) annotation;
-                tableName = test.name();
-                System.out.println("Table name " + tableName);
-            }
-
-        }
-
-        //Get all the fields in the pojo
-        Field[] declaredClassFields = clazz.getDeclaredFields();
-        System.out.println("Field 1 name " + declaredClassFields[1].getName());
-
-        //Use the field annotations and get all the column names and values and put them in their own ArrayLists
-        ArrayList<String> columnNames = new ArrayList<>();
-        ArrayList<String> columnValues = new ArrayList<>();
-        for(Field fields: declaredClassFields){
-            Annotation[] fieldAnnotations = fields.getAnnotations();
-
-            for (Annotation anno: fieldAnnotations){
-                String annoName = anno.annotationType().getSimpleName();
-                if(annoName.equals("Column")){
-                    columnNames.add(fields.getName());
-                    fields.setAccessible(true);
-                    columnValues.add( fields.get(obj).toString());
-                    fields.setAccessible(false);
-                }
-            }
-        }
-
-        //Create the start of sql string and adding table name
-        String sqlInsert = "Insert into ";
-        sqlInsert += tableName + " (";
-
-        //Adds the column names and column values to the sql string.
-        sqlInsert += String.join(",", columnNames) + ")";
-        sqlInsert += " values (" + String.join(",", columnValues) + ")";
-
-
-        System.out.println("Sql String: " + sqlInsert);
-
         try {
-            PreparedStatement pstmt = conn.prepareStatement(sqlInsert);
-            pstmt.executeUpdate();
+            PreparedStatement pstmt = conn.prepareStatement(statement, new String[] {"user_id"});
+            int rowInserted = pstmt.executeUpdate();
+            System.out.println("running sql command");
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-            */
+        //Run SQL command with connection to persist data
+        //
+
+
     }
 
     //Wezley's method to print all members
