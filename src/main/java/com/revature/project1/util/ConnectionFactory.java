@@ -3,7 +3,6 @@ package com.revature.project1.util;
 
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -52,7 +51,7 @@ public class ConnectionFactory {
 
         try{
 
-            props.load(new FileReader("WEB-INF/application.properties"));
+            props.load(new FileReader("src/main/webapp/WEB-INF/application.properties"));
         } catch (IOException e){
             e.printStackTrace();
         }

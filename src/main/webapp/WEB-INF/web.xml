@@ -4,34 +4,54 @@
         xmlns="http://java.sun.com/xml/ns/javaee"
         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
         version="2.5">
+
+<!--  Testing the below  -->
+    <display-name>Hello, Servlets!</display-name>
+
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+
     <servlet>
-        <servlet-name>userServlet</servlet-name>
-        <servlet-class>com.revature.project1.servlet.UserServlet</servlet-class>
+        <servlet-name>TestServlet</servlet-name>
+        <servlet-class>com.revature.servlets.TestServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>userServlet</servlet-name>
-        <url-pattern>/registration</url-pattern>
+        <servlet-name>TestServlet</servlet-name>
+        <url-pattern>/test</url-pattern>
     </servlet-mapping>
 
-    <servlet-mapping>
-        <servlet-name>userServlet</servlet-name>
-        <url-pattern>/authentication</url-pattern>
-    </servlet-mapping>
+<!--  Testing the above  -->
 
-    <servlet-mapping>
-        <servlet-name>userServlet</servlet-name>
-        <url-pattern>/transaction</url-pattern>
-    </servlet-mapping>
+<!--    <servlet>-->
+<!--        <servlet-name>userServlet</servlet-name>-->
+<!--        <servlet-class>com.revature.project1.servlet.UserServlet</servlet-class>-->
+<!--    </servlet>-->
 
-    <servlet-mapping>
-        <servlet-name>userServlet</servlet-name>
-        <url-pattern>/delete</url-pattern>
-    </servlet-mapping>
+<!--    <servlet-mapping>-->
+<!--        <servlet-name>userServlet</servlet-name>-->
+<!--        <url-pattern>/registration</url-pattern>-->
+<!--    </servlet-mapping>-->
 
-    <listener>
-        <listener-class>com.revature.project1.servlet.DependencyLoaderListener</listener-class>
-    </listener>
+<!--    <servlet-mapping>-->
+<!--        <servlet-name>userServlet</servlet-name>-->
+<!--        <url-pattern>/authentication</url-pattern>-->
+<!--    </servlet-mapping>-->
+
+<!--    <servlet-mapping>-->
+<!--        <servlet-name>userServlet</servlet-name>-->
+<!--        <url-pattern>/transaction</url-pattern>-->
+<!--    </servlet-mapping>-->
+
+<!--    <servlet-mapping>-->
+<!--        <servlet-name>userServlet</servlet-name>-->
+<!--        <url-pattern>/delete</url-pattern>-->
+<!--    </servlet-mapping>-->
+
+<!--    <listener>-->
+<!--        <listener-class>com.revature.project1.servlet.DependencyLoaderListener</listener-class>-->
+<!--    </listener>-->
 
 </web-app>
 
