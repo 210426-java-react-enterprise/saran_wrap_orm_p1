@@ -20,6 +20,7 @@
                         <url>http://localhost:8080/manager/text</url>
                         <server>LocalTomcat</server>
                         <path>/saranwrap</path>
+                        <update>true</update>
                     </configuration>
                 </plugin>
             </plugins>

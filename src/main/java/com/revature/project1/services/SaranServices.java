@@ -14,7 +14,7 @@ public class SaranServices {
     }
 
     //Inserting one obj into a database
-    public void insertInDB(Object obj){
+    public String insertInDB(Object obj){
         SqlInsert insertTest = new SqlInsert();
 
 
@@ -23,5 +23,7 @@ public class SaranServices {
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
+
+        return insertTest.getStatement();
     }
 }

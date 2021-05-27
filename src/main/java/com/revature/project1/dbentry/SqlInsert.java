@@ -23,13 +23,13 @@ public class SqlInsert extends SqlCrud{
         setStatement(obj);
         System.out.println(statement);
 
-        try {
-            PreparedStatement pstmt = conn.prepareStatement(statement, new String[] {"user_id"});
-            int rowInserted = pstmt.executeUpdate();
-            System.out.println("running sql command");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            PreparedStatement pstmt = conn.prepareStatement(statement, new String[] {"user_id"});
+//            int rowInserted = pstmt.executeUpdate();
+//            System.out.println("running sql command");
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
 
         //Run SQL command with connection to persist data
         //
