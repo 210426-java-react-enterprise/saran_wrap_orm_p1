@@ -38,16 +38,6 @@ public class ConnectionFactory {
 
     //this function loads our properties file (which holds our database credentials)
     private ConnectionFactory(){
-        /*
-        // commented out because we're using system variables
-        try {
-            props.load(new FileReader("src/main/resources/application.properties"));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-         */
 
         try{
             InputStream input = Thread.currentThread().getContextClassLoader().getResourceAsStream("application.properties");
@@ -66,12 +56,8 @@ public class ConnectionFactory {
                     props.getProperty("host-url"),
                     props.getProperty("username"),
                     props.getProperty("password")
-//                    System.getenv("host-url"),
-//                    System.getenv("username"),
-//                    System.getenv("password")
             );
 
-           // conn.setAutoCommit(false);
 
         }catch(SQLException sqle){
             sqle.printStackTrace();
