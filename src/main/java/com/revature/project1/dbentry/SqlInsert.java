@@ -5,10 +5,7 @@ import com.revature.project1.annotations.Entity;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -23,17 +20,24 @@ public class SqlInsert extends SqlCrud{
         setStatement(obj);
         System.out.println(statement);
 
+
+        PreparedStatement pstmt = null;
+        Statement stmt = null;
         try {
-            PreparedStatement pstmt = conn.prepareStatement(statement, new String[] {"user_id"});
-            int rowInserted = pstmt.executeUpdate();
-            System.out.println("running sql command");
-        } catch (SQLException e) {
-            e.printStackTrace();
+
+//            pstmt = conn.prepareStatement(statement, new String[]{"user_id"});
+            stmt = conn.createStatement();
+           int rowsInserted = stmt.executeUpdate(statement);
+//            int rowsInserted = pstmt.executeUpdate();
+ //           System.out.println(rowsInserted);
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
 
+            System.out.println("running sql command");
         //Run SQL command with connection to persist data
         //
-
 
     }
 

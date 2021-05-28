@@ -1,7 +1,6 @@
 package com.revature.project1.util;
 
 
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
@@ -51,8 +50,10 @@ public class ConnectionFactory {
          */
 
         try{
+            InputStream input = Thread.currentThread().getContextClassLoader().getResourceAsStream("application.properties");
 
-            props.load(new FileReader("WEB-INF/application.properties"));
+            props.load(input);
+
         } catch (IOException e){
             e.printStackTrace();
         }
@@ -62,12 +63,15 @@ public class ConnectionFactory {
         Connection conn = null;
         try{
             conn = DriverManager.getConnection(
-                    System.getenv("host-url"),
-                    System.getenv("username"),
-                    System.getenv("password")
+                    props.getProperty("host-url"),
+                    props.getProperty("username"),
+                    props.getProperty("password")
+//                    System.getenv("host-url"),
+//                    System.getenv("username"),
+//                    System.getenv("password")
             );
 
-            conn.setAutoCommit(false);
+           // conn.setAutoCommit(false);
 
         }catch(SQLException sqle){
             sqle.printStackTrace();

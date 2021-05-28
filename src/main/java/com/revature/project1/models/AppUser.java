@@ -5,7 +5,7 @@ import com.revature.project1.annotations.Entity;
 import com.revature.project1.annotations.Id;
 
 //@Table
-@Entity(name = "app_users")
+@Entity(name = "users")
 public class AppUser {
     @Id
     @Column(name = "user_id")
@@ -26,7 +26,7 @@ public class AppUser {
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @Column(name = "user_age", nullable = false)
+    @Column(name = "age", nullable = false)
     private int age;
 
     public  AppUser(){
