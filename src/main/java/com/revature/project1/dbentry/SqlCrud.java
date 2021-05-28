@@ -55,7 +55,12 @@ public abstract class SqlCrud {
                 break;
             case "select":
                 //statement = "{action} {items} from {tableName} where ({condition})"; // select format
-                statement = String.format("%s * from %s where (%s)", action, tableName, condition);
+                if(condition == null){
+                    statement = String.format("%s * from %s", action, tableName);
+                } else {
+                    statement = String.format("%s * from %s where (%s)", action, tableName, condition);
+                }
+
                 break;
             case "update":
                 String s = ""; // "column1=value1, column2=value2, ..."

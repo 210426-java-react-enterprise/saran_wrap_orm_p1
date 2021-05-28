@@ -1,6 +1,7 @@
 package com.revature.project1.services;
 
 import com.revature.project1.dbentry.SqlInsert;
+import com.revature.project1.dbentry.SqlSelect;
 import com.revature.project1.models.AppUser;
 import com.revature.project1.util.ConnectionFactory;
 
@@ -27,5 +28,17 @@ public class SaranServices {
         AppUser test = (AppUser) obj;
 
         return insertTest.getStatement();
+    }
+
+    public String selectAllDB(Object obj){
+        SqlSelect selectTest = new SqlSelect();
+
+        try {
+            selectTest.selectAll(obj, conn);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+
+        return selectTest.getStatement();
     }
 }

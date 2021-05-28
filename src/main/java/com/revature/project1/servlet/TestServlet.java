@@ -12,7 +12,12 @@ public class TestServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        resp.getWriter().write("<h1>/test works!</h1>");
+
+        SaranServices saranwrap = new SaranServices();
+        Object userObj = new AppUser("cTest", "Passw0rd", "cTest@mail.com", "Calex", "Tester", 23);
+        String str = saranwrap.selectAllDB(userObj);
+        resp.getWriter().write("<h1>/Selected all from DB String Success!</h1>");
+        resp.getWriter().write(str);
     }
 
     @Override
