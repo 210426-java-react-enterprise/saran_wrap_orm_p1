@@ -38,8 +38,9 @@ public abstract class SqlCrud {
                 String s2 = ""; // "value1, value2, value3, ..."
                 for (int i = 0; i < columnNames.size(); i++) {
                     if(!columnNames.get(i).equals("user_id")){
+
                         s1 += columnNames.get(i);
-                        s2 += columnValues.get(i);
+                        s2 += "'" + columnValues.get(i) + "'";
 
                         if (i < columnNames.size()-1) {
                             s1 += ", ";

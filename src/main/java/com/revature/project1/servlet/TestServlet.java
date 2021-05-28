@@ -18,7 +18,7 @@ public class TestServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         SaranServices saranwrap = new SaranServices();
-        Object userObj = new AppUser("gtomasel", "Passw0rd", "Email@mail.com", "Giancarlo", "Lastname", 23);
+        Object userObj = new AppUser("gtom", "Passw0rd", "gtom@mail.com", "Giancarlo", "Lastname", 23);
 
         String str = saranwrap.insertInDB(userObj);
         resp.getWriter().write("<h1>/Inserted Into DB String Success!</h1>");
