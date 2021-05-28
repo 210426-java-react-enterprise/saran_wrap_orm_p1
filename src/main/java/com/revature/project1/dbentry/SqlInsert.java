@@ -2,6 +2,7 @@ package com.revature.project1.dbentry;
 
 import com.revature.project1.annotations.Column;
 import com.revature.project1.annotations.Entity;
+import com.revature.project1.annotations.Id;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -28,7 +29,8 @@ public class SqlInsert extends SqlCrud{
 //            pstmt = conn.prepareStatement(statement, new String[]{"user_id"});
             stmt = conn.createStatement();
            int rowsInserted = stmt.executeUpdate(statement);
-//            int rowsInserted = pstmt.executeUpdate();
+            ResultSet rs = stmt.getGeneratedKeys();
+
  //           System.out.println(rowsInserted);
 
         } catch (SQLException throwables) {
