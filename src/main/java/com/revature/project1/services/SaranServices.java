@@ -17,7 +17,6 @@ public class SaranServices {
     public String insertInDB(Object obj){
         SqlInsert insertTest = new SqlInsert();
 
-
         try {
             insertTest.insertNewObject(obj, conn);
         } catch (IllegalAccessException e) {

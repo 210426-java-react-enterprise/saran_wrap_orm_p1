@@ -2,6 +2,7 @@ package com.revature.project1.dbentry;
 
 import com.revature.project1.annotations.Column;
 import com.revature.project1.annotations.Entity;
+import com.revature.project1.annotations.Id;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -36,12 +37,17 @@ public abstract class SqlCrud {
                 String s1 = ""; // "column1, column2, column3, ..."
                 String s2 = ""; // "value1, value2, value3, ..."
                 for (int i = 0; i < columnNames.size(); i++) {
-                    s1 += columnNames.get(i);
-                    s2 += columnValues.get(i);
-                    if (i < columnNames.size()-1) {
-                        s1 += ", ";
-                        s2 += ", ";
+                    if(!columnNames.get(i).equals("user_id")){
+                        s1 += columnNames.get(i);
+                        s2 += columnValues.get(i);
+
+                        if (i < columnNames.size()-1) {
+                            s1 += ", ";
+                            s2 += ", ";
+                        }
                     }
+
+
                 }
                 //statement = "{action} {tableName} ({columnNames}) values ({columnValues})"; // insert format
                 statement = String.format("%s %s (%s) values (%s)", action, tableName, s1, s2);
@@ -53,7 +59,8 @@ public abstract class SqlCrud {
             case "update":
                 String s = ""; // "column1=value1, column2=value2, ..."
                 for (int i = 0; i < columnNames.size(); i++) {
-                    s += columnNames.get(i) + "=" + columnValues.get(i);
+
+                        s += columnNames.get(i) + "=" + columnValues.get(i);
                     if (i < columnNames.size()-1) {
                         s += ", ";
                     }
@@ -95,11 +102,12 @@ public abstract class SqlCrud {
 
     public void setColumnNamesAndValues() throws IllegalAccessException {
 
+        //.filter(e -> e.getAnnotation(Column.class).annotationType().getSimpleName().equals("Column"))
 
         //Get all the names of fields taged with Column
        List<String> names = Stream.of(clazz.getDeclaredFields())
-                .filter(e -> e.getAnnotation(Column.class).annotationType().getSimpleName().equals("Column"))
-                .map(Field::getName)
+               .filter(e -> e.getAnnotation(Column.class).annotationType().getSimpleName().equals("Column"))
+                .map(e -> e.getAnnotation(Column.class).name())
                 .collect(Collectors.toList());
 
        for (Object name: names){
