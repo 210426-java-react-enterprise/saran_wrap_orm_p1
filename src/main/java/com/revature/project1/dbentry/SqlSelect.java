@@ -1,5 +1,9 @@
 package com.revature.project1.dbentry;
 
+import com.revature.project1.annotations.Column;
+import com.revature.project1.dbentry.SqlCrud;
+
+import java.lang.reflect.Field;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,37 +15,111 @@ public class SqlSelect extends SqlCrud {
         action = "select";
     }
 
-    public ArrayList<Object> selectAll(Object obj, Connection conn) throws IllegalAccessException {
+//    public ArrayList<Object> selectAll(Object obj, Connection conn) throws IllegalAccessException {
+//
+//        setStatement(obj);
+//
+//        Statement stmt = null;
+//
+//        try {
+//
+//            stmt = conn.createStatement();
+//           ResultSet rs = stmt.executeQuery(statement);
+//            System.out.println(rs.toString());
+//
+//            List<List<String>> dbObjects = new ArrayList<>();
+//            while (rs.next()){
+//                List<String> columnValues = new ArrayList<>();
+//
+//                for (int i = 1; i < rs.getMetaData().getColumnCount(); i++){
+//                    columnValues.add(rs.getString(i));
+//                }
+//
+//                dbObjects.add(columnValues);
+//            }
+//
+//            System.out.println(dbObjects);
+//
+//        }catch (SQLException throwables){
+//            throwables.printStackTrace();
+//        }
+//
+//        System.out.println("running select command");
+//        return null;
+//    }
 
-        setStatement(obj);
+    public <T> ArrayList<T> selectGeneric(Class<T> obj, Connection conn) throws IllegalAccessException {
+
+
+        ArrayList<T> temp = new ArrayList<>();
 
         Statement stmt = null;
+        T item;
 
         try {
-
+            setStatement(obj.newInstance());
             stmt = conn.createStatement();
-           ResultSet rs = stmt.executeQuery(statement);
+            ResultSet rs = stmt.executeQuery(statement);
             System.out.println(rs.toString());
 
-            List<List<String>> dbObjects = new ArrayList<>();
             while (rs.next()){
-                List<String> columnValues = new ArrayList<>();
+                T t = obj.newInstance();
+                loadResultSetIntoObject(rs, t);
+                temp.add(t);
 
-                for (int i = 1; i < rs.getMetaData().getColumnCount(); i++){
-                    columnValues.add(rs.getString(i));
-                }
-
-                dbObjects.add(columnValues);
             }
 
-            System.out.println(dbObjects);
-
-        }catch (SQLException throwables){
+        } catch (SQLException | InstantiationException throwables) {
             throwables.printStackTrace();
         }
 
-        System.out.println("running select command");
-        return null;
+        return temp;
+    }
+
+    // Used the below link as a reference on how to initialize a generic class from the DB
+    // https://dzone.com/articles/method-to-get-jdbc-result-set-into-given-generic-c
+
+    public <T> void loadResultSetIntoObject(ResultSet rs, Object obj) throws SQLException, IllegalAccessException {
+
+        for (Field field: clazz.getDeclaredFields()){
+            field.setAccessible(true);
+            Object value = rs.getObject(field.getAnnotation(Column.class).name());
+            Class<?> type = field.getType();
+            if(isPrimitive(type)){
+                Class<?> boxes = boxPrimitiveClass(type);
+                value = boxes.cast(value);
+            }
+            field.set(obj, value);
+        }
+
+    }
+
+    public boolean isPrimitive(Class<?> type){
+        return (type == int.class || type == long.class || type == double.class || type == float.class
+                || type == boolean.class || type == byte.class || type == char.class || type == short.class);
+    }
+
+    private Class<?> boxPrimitiveClass(Class<?> type){
+        if (type == int.class) {
+            return Integer.class;
+        } else if (type == long.class) {
+            return Long.class;
+        } else if (type == double.class) {
+            return Double.class;
+        } else if (type == float.class) {
+            return Float.class;
+        } else if (type == boolean.class) {
+            return Boolean.class;
+        } else if (type == byte.class) {
+            return Byte.class;
+        } else if (type == char.class) {
+            return Character.class;
+        } else if (type == short.class) {
+            return Short.class;
+        } else {
+            String string = "class '" + type.getName() + "' is not a primitive";
+            throw new IllegalArgumentException(string);
+        }
     }
 
 

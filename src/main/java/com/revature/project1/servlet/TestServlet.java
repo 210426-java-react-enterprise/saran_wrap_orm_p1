@@ -15,10 +15,17 @@ public class TestServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         SaranServices saranwrap = new SaranServices();
-        Object userObj = new AppUser("cTest", "Passw0rd", "cTest@mail.com", "Calex", "Tester", 23);
-        ArrayList<Object> allDBObjects = saranwrap.selectAllDB(userObj);
-        resp.getWriter().write("<h1>/Selected all from DB String Success!</h1>");
-        resp.getWriter().write(allDBObjects.get(0).toString());
+       // Object userObj = new AppUser("cTest", "Passw0rd", "cTest@mail.com", "Calex", "Tester", 23);
+//        ArrayList<Object> allDBObjects = saranwrap.selectAllDB(userObj);
+//        resp.getWriter().write("<h1>/Selected all from DB String Success!</h1>");
+//        resp.getWriter().write(allDBObjects.get(0).toString());
+
+        ArrayList<AppUser> allDBObject = saranwrap.SelectAllGeneric(AppUser.class);
+        resp.getWriter().write("<h1>/Testing generic select all!</h1>\n");
+        for (AppUser user : allDBObject){
+            resp.getWriter().write(user.toString() + " \n");
+        }
+
     }
 
     @Override

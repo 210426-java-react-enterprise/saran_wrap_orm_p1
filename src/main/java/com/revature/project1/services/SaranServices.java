@@ -1,8 +1,9 @@
 package com.revature.project1.services;
 
 import com.revature.project1.dbentry.SqlInsert;
-import com.revature.project1.dbentry.SqlSelect;
+
 import com.revature.project1.models.AppUser;
+import com.revature.project1.dbentry.SqlSelect;
 import com.revature.project1.util.ConnectionFactory;
 
 import java.sql.Connection;
@@ -31,11 +32,24 @@ public class SaranServices {
         return insertTest.getStatement();
     }
 
-    public ArrayList<Object> selectAllDB(Object obj){
+//    public ArrayList<Object> selectAllDB(Object obj){
+//        SqlSelect selectTest = new SqlSelect();
+//        ArrayList<Object> allDBObjects = new ArrayList<>();
+//        try {
+//           allDBObjects = selectTest.selectAll(obj, conn);
+//        } catch (IllegalAccessException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return allDBObjects;
+//    }
+
+    public <T> ArrayList<T> SelectAllGeneric(Class<T> obj){
         SqlSelect selectTest = new SqlSelect();
-        ArrayList<Object> allDBObjects = new ArrayList<>();
+        ArrayList<T> allDBObjects = new ArrayList<>();
+
         try {
-           allDBObjects = selectTest.selectAll(obj, conn);
+            allDBObjects = selectTest.selectGeneric(obj, conn);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }

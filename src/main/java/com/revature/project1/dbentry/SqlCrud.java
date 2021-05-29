@@ -121,6 +121,9 @@ public abstract class SqlCrud {
        }
 
 
+       if(action.equals("select")){
+           return;
+       }
        List<String> values = Stream.of(clazz.getDeclaredFields())
                         .filter(e -> e.getAnnotation(Column.class).annotationType().getSimpleName().equals("Column"))
                         .map(e -> getValueofField(e))
