@@ -12,6 +12,18 @@ import java.util.ArrayList;
 public class TestServlet extends HttpServlet {
 
     @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws IOException{
+
+        SaranServices saranwrap = new SaranServices();
+
+
+        String str = saranwrap.deleteDB(AppUser.class, "username = 'gtomasel'");
+        resp.getWriter().write("<h1>/Delete DB obj Success!</h1>");
+        resp.getWriter().write(str);
+    }
+
+
+    @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         SaranServices saranwrap = new SaranServices();
