@@ -59,6 +59,7 @@ public abstract class SqlCrud {
                     statement = String.format("%s * from %s", action, tableName);
                 } else {
                     statement = String.format("%s * from %s where (%s)", action, tableName, condition);
+                    System.out.println(statement);
                 }
 
                 break;

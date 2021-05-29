@@ -32,24 +32,25 @@ public class SaranServices {
         return insertTest.getStatement();
     }
 
-//    public ArrayList<Object> selectAllDB(Object obj){
-//        SqlSelect selectTest = new SqlSelect();
-//        ArrayList<Object> allDBObjects = new ArrayList<>();
-//        try {
-//           allDBObjects = selectTest.selectAll(obj, conn);
-//        } catch (IllegalAccessException e) {
-//            e.printStackTrace();
-//        }
-//
-//        return allDBObjects;
-//    }
+    public <T> ArrayList<T> SelectDB(Class<T> obj, String condition){
+        SqlSelect selectTest = new SqlSelect();
+        ArrayList<T> DBObjects = new ArrayList<>();
 
-    public <T> ArrayList<T> SelectAllGeneric(Class<T> obj){
+        try {
+            DBObjects = selectTest.select(obj, condition, conn);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+
+        return DBObjects;
+    }
+
+    public <T> ArrayList<T> SelectAllDB(Class<T> obj){
         SqlSelect selectTest = new SqlSelect();
         ArrayList<T> allDBObjects = new ArrayList<>();
 
         try {
-            allDBObjects = selectTest.selectGeneric(obj, conn);
+            allDBObjects = selectTest.selectAll(obj, conn);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }

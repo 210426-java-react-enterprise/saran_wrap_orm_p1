@@ -15,46 +15,39 @@ public class SqlSelect extends SqlCrud {
         action = "select";
     }
 
-//    public ArrayList<Object> selectAll(Object obj, Connection conn) throws IllegalAccessException {
-//
-//        setStatement(obj);
-//
-//        Statement stmt = null;
-//
-//        try {
-//
-//            stmt = conn.createStatement();
-//           ResultSet rs = stmt.executeQuery(statement);
-//            System.out.println(rs.toString());
-//
-//            List<List<String>> dbObjects = new ArrayList<>();
-//            while (rs.next()){
-//                List<String> columnValues = new ArrayList<>();
-//
-//                for (int i = 1; i < rs.getMetaData().getColumnCount(); i++){
-//                    columnValues.add(rs.getString(i));
-//                }
-//
-//                dbObjects.add(columnValues);
-//            }
-//
-//            System.out.println(dbObjects);
-//
-//        }catch (SQLException throwables){
-//            throwables.printStackTrace();
-//        }
-//
-//        System.out.println("running select command");
-//        return null;
-//    }
+    public <T> ArrayList<T> select(Class<T> obj, String condition, Connection conn) throws IllegalAccessException {
 
-    public <T> ArrayList<T> selectGeneric(Class<T> obj, Connection conn) throws IllegalAccessException {
+        ArrayList<T> temp = new ArrayList<>();
+
+        this.condition = condition;
+        Statement stmt = null;
+
+        try {
+            setStatement(obj.newInstance());
+            stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(statement);
+            System.out.println(rs.toString());
+
+            while (rs.next()){
+                T t = obj.newInstance();
+                loadResultSetIntoObject(rs, t);
+                temp.add(t);
+
+            }
+
+        } catch (SQLException | InstantiationException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return temp;
+    }
+
+    public <T> ArrayList<T> selectAll(Class<T> obj, Connection conn) throws IllegalAccessException {
 
 
         ArrayList<T> temp = new ArrayList<>();
 
         Statement stmt = null;
-        T item;
 
         try {
             setStatement(obj.newInstance());
