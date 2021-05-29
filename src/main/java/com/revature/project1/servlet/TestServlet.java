@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class TestServlet extends HttpServlet {
 
@@ -15,9 +16,9 @@ public class TestServlet extends HttpServlet {
 
         SaranServices saranwrap = new SaranServices();
         Object userObj = new AppUser("cTest", "Passw0rd", "cTest@mail.com", "Calex", "Tester", 23);
-        String str = saranwrap.selectAllDB(userObj);
+        ArrayList<Object> allDBObjects = saranwrap.selectAllDB(userObj);
         resp.getWriter().write("<h1>/Selected all from DB String Success!</h1>");
-        resp.getWriter().write(str);
+        resp.getWriter().write(allDBObjects.get(0).toString());
     }
 
     @Override

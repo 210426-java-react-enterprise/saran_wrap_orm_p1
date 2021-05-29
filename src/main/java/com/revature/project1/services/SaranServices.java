@@ -6,6 +6,7 @@ import com.revature.project1.models.AppUser;
 import com.revature.project1.util.ConnectionFactory;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 public class SaranServices {
 
@@ -30,15 +31,15 @@ public class SaranServices {
         return insertTest.getStatement();
     }
 
-    public String selectAllDB(Object obj){
+    public ArrayList<Object> selectAllDB(Object obj){
         SqlSelect selectTest = new SqlSelect();
-
+        ArrayList<Object> allDBObjects = new ArrayList<>();
         try {
-            selectTest.selectAll(obj, conn);
+           allDBObjects = selectTest.selectAll(obj, conn);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
 
-        return selectTest.getStatement();
+        return allDBObjects;
     }
 }
