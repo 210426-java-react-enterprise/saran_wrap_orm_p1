@@ -15,7 +15,7 @@ public class SaranServices {
     Connection conn;
 
     public SaranServices(){
-        conn = ConnectionFactory.getInstance().getConnection();
+
     }
 
     //Inserting one obj into a database

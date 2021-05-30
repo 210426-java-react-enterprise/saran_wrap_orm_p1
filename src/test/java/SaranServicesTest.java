@@ -14,6 +14,7 @@ public class SaranServicesTest {
     private SaranServices sut;
     private SqlInsert mockSqlInsert;
 
+
     @Before
     public void setUp(){
         sut = new SaranServices();

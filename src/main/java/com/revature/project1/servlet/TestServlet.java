@@ -2,11 +2,13 @@ package com.revature.project1.servlet;
 
 import com.revature.project1.models.AppUser;
 import com.revature.project1.services.SaranServices;
+import com.revature.project1.util.ConnectionFactory;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Connection;
 import java.util.ArrayList;
 
 public class TestServlet extends HttpServlet {
@@ -14,6 +16,7 @@ public class TestServlet extends HttpServlet {
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws IOException{
 
+        Connection conn = ConnectionFactory.getInstance().getConnection();
         SaranServices saranwrap = new SaranServices();
 
 
