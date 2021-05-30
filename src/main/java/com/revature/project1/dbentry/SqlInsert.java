@@ -37,19 +37,8 @@ public class SqlInsert extends SqlCrud{
             throwables.printStackTrace();
         }
 
-            System.out.println("running sql command");
+            System.out.println("Ran SQL INSERT command");
         //Run SQL command with connection to persist data
-        //
 
-    }
-
-    //Wezley's method to print all members
-    private void printMembers(Object[] members, String memberType) {
-        if (members.length != 0) {
-            System.out.println("\t" + memberType + " on class: ");
-            for (Object o : members) {
-                System.out.println("\t\t- " + o);
-            }
-        }
     }
 }

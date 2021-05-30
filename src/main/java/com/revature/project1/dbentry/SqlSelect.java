@@ -39,6 +39,7 @@ public class SqlSelect extends SqlCrud {
             throwables.printStackTrace();
         }
 
+        System.out.println("Ran SQL SELECT command. Returning results.");
         return temp;
     }
 

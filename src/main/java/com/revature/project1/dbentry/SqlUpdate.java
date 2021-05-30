@@ -9,12 +9,16 @@ public class SqlUpdate extends SqlCrud{
         action = "update";
     }
 
-    public void update(Object obj, Connection conn) throws IllegalAccessException, SQLException {
-        setStatement(obj, condition);
-        System.out.println(statement);
+    public void update(Object obj, Connection conn)  {
+        Statement stmt = null;
 
-        Statement stmt = conn.createStatement();
-        stmt.executeUpdate(statement);
-        System.out.println("running sql command");
+        try {
+            setStatement(obj, condition);
+            stmt = conn.createStatement();
+            stmt.executeUpdate(statement);
+        } catch (IllegalAccessException | SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Ran SQL UPDATE command");
     }
 }

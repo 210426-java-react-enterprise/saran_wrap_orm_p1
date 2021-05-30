@@ -6,9 +6,7 @@ import com.revature.project1.dbentry.SqlUpdate;
 import com.revature.project1.models.AppUser;
 import com.revature.project1.dbentry.SqlSelect;
 import com.revature.project1.util.ConnectionFactory;
-
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class SaranServices {
@@ -38,11 +36,7 @@ public class SaranServices {
     public String updateObject(Object obj, String key, String value) {
         SqlUpdate updateTest = new SqlUpdate();
         updateTest.setCondition(key, value);
-        try {
-            updateTest.update(obj, conn);
-        } catch (IllegalAccessException | SQLException e) {
-            e.printStackTrace();
-        }
+        updateTest.update(obj, conn);
         return updateTest.getStatement();
     }
 
