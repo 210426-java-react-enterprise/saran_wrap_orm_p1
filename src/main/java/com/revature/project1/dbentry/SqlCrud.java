@@ -121,7 +121,7 @@ public abstract class SqlCrud {
        }
 
 
-       if(action.equals("select")){
+       if(action.equals("select") || action.equals("delete from")){
            return;
        }
        List<String> values = Stream.of(clazz.getDeclaredFields())

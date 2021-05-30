@@ -1,5 +1,6 @@
 package com.revature.project1.services;
 
+import com.revature.project1.dbentry.SqlDelete;
 import com.revature.project1.dbentry.SqlInsert;
 import com.revature.project1.dbentry.SqlUpdate;
 import com.revature.project1.models.AppUser;
@@ -70,4 +71,14 @@ public class SaranServices {
 
         return allDBObjects;
     }
+
+    public <T> String deleteDB(Class<T> obj, String condition){
+        SqlDelete sqlDelete = new SqlDelete();
+
+        String rowsDeleted = sqlDelete.delete(obj, condition, conn);
+
+        return rowsDeleted;
+
+    }
+
 }
