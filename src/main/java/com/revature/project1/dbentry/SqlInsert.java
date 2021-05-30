@@ -16,6 +16,12 @@ public class SqlInsert extends SqlCrud{
         action = "insert into";
     }
 
+
+    public void testNothing(String str){
+        str = "test";
+        str+= "and test";
+    }
+
     public void insertNewObject(Object obj, Connection conn) throws IllegalAccessException {
 
         setStatement(obj);
@@ -26,7 +32,7 @@ public class SqlInsert extends SqlCrud{
        Statement stmt = null;
         try {
 
-//            pstmt = conn.prepareStatement(statement, new String[]{"user_id"});
+
             stmt = conn.createStatement();
            int rowsInserted = stmt.executeUpdate(statement);
             ResultSet rs = stmt.getGeneratedKeys();

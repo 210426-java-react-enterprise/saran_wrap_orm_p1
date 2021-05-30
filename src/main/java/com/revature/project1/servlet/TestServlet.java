@@ -47,9 +47,9 @@ public class TestServlet extends HttpServlet {
         SaranServices saranwrap = new SaranServices();
         Object userObj = new AppUser("cTest", "Passw0rd", "cTest@mail.com", "Calex", "Tester", 23);
 
-        String str = saranwrap.insertInDB(userObj);
+        saranwrap.insertInDB(userObj);
         resp.getWriter().write("<h1>/Inserted Into DB String Success!</h1>");
-        resp.getWriter().write(str);
+        resp.getWriter().write(String.valueOf(userObj));
     }
 
 }

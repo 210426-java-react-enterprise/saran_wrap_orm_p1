@@ -19,21 +19,30 @@ public class SaranServices {
     }
 
     //Inserting one obj into a database
-    public String insertInDB(Object obj){
+    public void insertInDB(Object obj){
+
+        if(obj == null){
+            throw new NullPointerException();
+        }
+
         SqlInsert insertTest = new SqlInsert();
 
         try {
+            insertTest.testNothing("test");
             insertTest.insertNewObject(obj, conn);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
 
-        AppUser test = (AppUser) obj;
-
-        return insertTest.getStatement();
+        return;
     }
 
     public <T> ArrayList<T> SelectDB(Class<T> obj, String condition){
+
+        if(obj == null){
+            throw new NullPointerException();
+        }
+
         SqlSelect selectTest = new SqlSelect();
         ArrayList<T> DBObjects = new ArrayList<>();
 
@@ -47,6 +56,11 @@ public class SaranServices {
     }
 
     public <T> ArrayList<T> SelectAllDB(Class<T> obj){
+
+        if(obj == null){
+            throw new NullPointerException();
+        }
+
         SqlSelect selectTest = new SqlSelect();
         ArrayList<T> allDBObjects = new ArrayList<>();
 
@@ -60,6 +74,11 @@ public class SaranServices {
     }
 
     public <T> String deleteDB(Class<T> obj, String condition){
+
+        if(obj == null){
+            throw new NullPointerException();
+        }
+
         SqlDelete sqlDelete = new SqlDelete();
 
         String rowsDeleted = sqlDelete.delete(obj, condition, conn);
