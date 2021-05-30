@@ -17,7 +17,7 @@ public abstract class SqlCrud {
     protected Object obj;
     protected Entity entity;
     protected String tableName;
-    protected String condition;
+    protected String condition; // "uniqueFieldName = uniqueFieldValue"
     protected String statement;
     protected String action;
     protected HashMap<String, Object> data;
@@ -61,7 +61,7 @@ public abstract class SqlCrud {
                 String s = ""; // "column1=value1, column2=value2, ..."
                 for (int i = 0; i < columnNames.size(); i++) {
 
-                        s += columnNames.get(i) + "=" + columnValues.get(i);
+                        s += columnNames.get(i) + "=" + "'" + columnValues.get(i)+ "'";
                     if (i < columnNames.size()-1) {
                         s += ", ";
                     }
@@ -105,7 +105,7 @@ public abstract class SqlCrud {
 
         //.filter(e -> e.getAnnotation(Column.class).annotationType().getSimpleName().equals("Column"))
 
-        //Get all the names of fields taged with Column
+        //Get all the names of fields tagged with Column
        List<String> names = Stream.of(clazz.getDeclaredFields())
                .filter(e -> e.getAnnotation(Column.class).annotationType().getSimpleName().equals("Column"))
                 .map(e -> e.getAnnotation(Column.class).name())
@@ -168,5 +168,11 @@ public abstract class SqlCrud {
         return clazz;
     }
 
+    public void setCondition(String key, String value) {
+        condition = key + "=" + "'" + value + "'";
+    }
 
+    public void setCondition(String key, int value) {
+        condition = key + "=" + value;
+    }
 }
