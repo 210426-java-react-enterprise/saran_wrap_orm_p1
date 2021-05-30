@@ -7,7 +7,6 @@ import com.revature.project1.annotations.Id;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -176,6 +175,9 @@ public abstract class SqlCrud {
         return clazz;
     }
 
+    public void setCondition(String condition) {
+        this.condition = condition;
+    }
     public void setCondition(String key, String value) {
         condition = key + "=" + "'" + value + "'";
     }
