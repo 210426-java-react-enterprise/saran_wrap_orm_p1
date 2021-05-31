@@ -1,0 +1,129 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > SqlUpdate</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+    @import "../../.css/highlight-idea.css";
+  </style>
+  <script type="text/javascript" src="../../.js/highlight.pack.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.revature.project1.dbentry</a>
+</div>
+
+<h1>Coverage Summary for Class: SqlUpdate (com.revature.project1.dbentry)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">SqlUpdate</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/10)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package com.revature.project1.dbentry;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import java.sql.Connection;
+<i class="no-highlight">4</i>&nbsp;import java.sql.SQLException;
+<i class="no-highlight">5</i>&nbsp;import java.sql.Statement;
+<i class="no-highlight">6</i>&nbsp;
+<i class="no-highlight">7</i>&nbsp;public class SqlUpdate extends StatementCreation {
+<b class="nc"><i class="no-highlight">8</i>&nbsp;    public SqlUpdate() {</b>
+<b class="nc"><i class="no-highlight">9</i>&nbsp;        action = &quot;update&quot;;</b>
+<i class="no-highlight">10</i>&nbsp;    }
+<i class="no-highlight">11</i>&nbsp;
+<i class="no-highlight">12</i>&nbsp;    public void update(Object obj, Connection conn)  {
+<b class="nc"><i class="no-highlight">13</i>&nbsp;        Statement stmt = null;</b>
+<i class="no-highlight">14</i>&nbsp;
+<i class="no-highlight">15</i>&nbsp;        try {
+<b class="nc"><i class="no-highlight">16</i>&nbsp;            setStatement(obj, condition);</b>
+<b class="nc"><i class="no-highlight">17</i>&nbsp;            stmt = conn.createStatement();</b>
+<b class="nc"><i class="no-highlight">18</i>&nbsp;            stmt.executeUpdate(statement);</b>
+<b class="nc"><i class="no-highlight">19</i>&nbsp;        } catch (IllegalAccessException | SQLException e) {</b>
+<b class="nc"><i class="no-highlight">20</i>&nbsp;            e.printStackTrace();</b>
+<b class="nc"><i class="no-highlight">21</i>&nbsp;        }</b>
+<b class="nc"><i class="no-highlight">22</i>&nbsp;        System.out.println(&quot;Ran SQL UPDATE command&quot;);</b>
+<i class="no-highlight">23</i>&nbsp;    }
+<i class="no-highlight">24</i>&nbsp;}
+</div>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-05-31 12:47</div>
+</div>
+</body>
+</html>

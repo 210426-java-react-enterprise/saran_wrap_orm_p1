@@ -1,0 +1,174 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > ConnectionFactory</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+    @import "../../.css/highlight-idea.css";
+  </style>
+  <script type="text/javascript" src="../../.js/highlight.pack.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.revature.project1.util</a>
+</div>
+
+<h1>Coverage Summary for Class: ConnectionFactory (com.revature.project1.util)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ConnectionFactory</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    25%
+  </span>
+  <span class="absValue">
+    (1/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    12%
+  </span>
+  <span class="absValue">
+    (3/25)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package com.revature.project1.util;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;
+<i class="no-highlight">4</i>&nbsp;import java.io.IOException;
+<i class="no-highlight">5</i>&nbsp;import java.io.InputStream;
+<i class="no-highlight">6</i>&nbsp;import java.sql.Connection;
+<i class="no-highlight">7</i>&nbsp;import java.sql.DriverManager;
+<i class="no-highlight">8</i>&nbsp;import java.sql.SQLException;
+<i class="no-highlight">9</i>&nbsp;import java.util.Properties;
+<i class="no-highlight">10</i>&nbsp;
+<i class="no-highlight">11</i>&nbsp;//singleton design pattern-&gt;will prevent more than one instances to be made
+<i class="no-highlight">12</i>&nbsp;//factory design pattern-&gt; abstracts the messy work of connecting
+<i class="no-highlight">13</i>&nbsp;public class ConnectionFactory {
+<i class="no-highlight">14</i>&nbsp;    //one instance of the factory to be made
+<i class="no-highlight">15</i>&nbsp;    private static ConnectionFactory connectionFactory;//lazy singleton
+<b class="nc"><i class="no-highlight">16</i>&nbsp;    private Properties props = new Properties();</b>
+<i class="no-highlight">17</i>&nbsp;
+<i class="no-highlight">18</i>&nbsp;    //lazy because it will only create the instance only
+<i class="no-highlight">19</i>&nbsp;    // when the getInstance method is called
+<i class="no-highlight">20</i>&nbsp;    //creates and returns our ONE connection factory instance
+<i class="no-highlight">21</i>&nbsp;    public static ConnectionFactory getInstance() {
+<b class="nc"><i class="no-highlight">22</i>&nbsp;        if (connectionFactory == null) {</b>
+<b class="nc"><i class="no-highlight">23</i>&nbsp;            connectionFactory = new ConnectionFactory();</b>
+<i class="no-highlight">24</i>&nbsp;        }
+<b class="nc"><i class="no-highlight">25</i>&nbsp;        return connectionFactory;</b>
+<i class="no-highlight">26</i>&nbsp;    }
+<i class="no-highlight">27</i>&nbsp;
+<i class="no-highlight">28</i>&nbsp;    //this static block grabs the proper Driverclass and loads it into memory
+<i class="no-highlight">29</i>&nbsp;    //so it has the right driver file to connect our data base
+<i class="no-highlight">30</i>&nbsp;    //loads driver class
+<i class="no-highlight">31</i>&nbsp;    static {
+<i class="no-highlight">32</i>&nbsp;        try{
+<b class="fc"><i class="no-highlight">33</i>&nbsp;            Class.forName(&quot;org.postgresql.Driver&quot;);</b>
+<b class="nc"><i class="no-highlight">34</i>&nbsp;        }catch(ClassNotFoundException e){</b>
+<b class="nc"><i class="no-highlight">35</i>&nbsp;            e.printStackTrace();</b>
+<b class="fc"><i class="no-highlight">36</i>&nbsp;        }</b>
+<b class="fc"><i class="no-highlight">37</i>&nbsp;    }</b>
+<i class="no-highlight">38</i>&nbsp;
+<i class="no-highlight">39</i>&nbsp;    //this function loads our properties file (which holds our database credentials)
+<b class="nc"><i class="no-highlight">40</i>&nbsp;    private ConnectionFactory(){</b>
+<i class="no-highlight">41</i>&nbsp;
+<i class="no-highlight">42</i>&nbsp;        try{
+<b class="nc"><i class="no-highlight">43</i>&nbsp;            InputStream input = Thread.currentThread().getContextClassLoader().getResourceAsStream(&quot;application.properties&quot;);</b>
+<i class="no-highlight">44</i>&nbsp;
+<b class="nc"><i class="no-highlight">45</i>&nbsp;            props.load(input);</b>
+<i class="no-highlight">46</i>&nbsp;
+<b class="nc"><i class="no-highlight">47</i>&nbsp;        } catch (IOException e){</b>
+<b class="nc"><i class="no-highlight">48</i>&nbsp;            e.printStackTrace();</b>
+<b class="nc"><i class="no-highlight">49</i>&nbsp;        }</b>
+<b class="nc"><i class="no-highlight">50</i>&nbsp;    }</b>
+<i class="no-highlight">51</i>&nbsp;
+<i class="no-highlight">52</i>&nbsp;    public Connection getConnection(){
+<b class="nc"><i class="no-highlight">53</i>&nbsp;        Connection conn = null;</b>
+<i class="no-highlight">54</i>&nbsp;        try{
+<b class="nc"><i class="no-highlight">55</i>&nbsp;            conn = DriverManager.getConnection(</b>
+<b class="nc"><i class="no-highlight">56</i>&nbsp;                    props.getProperty(&quot;host-url&quot;),</b>
+<b class="nc"><i class="no-highlight">57</i>&nbsp;                    props.getProperty(&quot;username&quot;),</b>
+<b class="nc"><i class="no-highlight">58</i>&nbsp;                    props.getProperty(&quot;password&quot;)</b>
+<i class="no-highlight">59</i>&nbsp;            );
+<i class="no-highlight">60</i>&nbsp;
+<i class="no-highlight">61</i>&nbsp;
+<b class="nc"><i class="no-highlight">62</i>&nbsp;        }catch(SQLException sqle){</b>
+<b class="nc"><i class="no-highlight">63</i>&nbsp;            sqle.printStackTrace();</b>
+<i class="no-highlight">64</i>&nbsp;
+<b class="nc"><i class="no-highlight">65</i>&nbsp;        }</b>
+<i class="no-highlight">66</i>&nbsp;
+<b class="nc"><i class="no-highlight">67</i>&nbsp;        return conn;</b>
+<i class="no-highlight">68</i>&nbsp;    }
+<i class="no-highlight">69</i>&nbsp;}
+</div>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-05-31 12:47</div>
+</div>
+</body>
+</html>
