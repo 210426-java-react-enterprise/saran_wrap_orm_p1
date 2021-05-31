@@ -1,20 +1,37 @@
 package com.revature.project1.dbentry;
 
 import com.revature.project1.annotations.Column;
+
 import java.lang.reflect.Field;
 import java.sql.Connection;
-import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
-public class SqlSelect extends StatementCreation {
-    public SqlSelect() {
-        action = "select";
+public class SqlCreation extends StatementCreation{
+
+    public void insertNewObject(Object obj, Connection conn) {
+        action = "insert into";
+        Statement stmt = null;
+        try {
+            setStatement(obj);
+            //System.out.println(statement);
+            stmt = conn.createStatement();
+
+            int rowsInserted = stmt.executeUpdate(statement);
+            ResultSet rs = stmt.getGeneratedKeys();
+            //System.out.println(rowsInserted);
+        } catch (SQLException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("Ran SQL INSERT command");
+        //Run SQL command with connection to persist data
     }
 
     public <T> ArrayList<T> select(Class<T> obj, String condition, Connection conn) {
-
+        action = "select";
         ArrayList<T> temp = new ArrayList<>();
 
         this.condition = condition;
@@ -42,8 +59,7 @@ public class SqlSelect extends StatementCreation {
     }
 
     public <T> ArrayList<T> selectAll(Class<T> obj, Connection conn){
-
-
+        action = "select";
         ArrayList<T> temp = new ArrayList<>();
 
         Statement stmt = null;
@@ -68,6 +84,40 @@ public class SqlSelect extends StatementCreation {
         return temp;
     }
 
+    public void update(Object obj, Connection conn)  {
+        action = "update";
+        Statement stmt = null;
+
+        try {
+            setStatement(obj, condition);
+            stmt = conn.createStatement();
+            stmt.executeUpdate(statement);
+        } catch (IllegalAccessException | SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Ran SQL UPDATE command");
+    }
+
+    public <T> String delete(Class<T> obj, String condition, Connection conn){
+        action = "delete from";
+        this.condition = condition;
+        Statement stmt = null;
+
+        try {
+            setStatement(obj.newInstance());
+            stmt = conn.createStatement();
+            String rowsDeleted = String.valueOf(stmt.executeUpdate(statement));
+            System.out.println("Ran SQL DELETE command.");
+            return rowsDeleted;
+        } catch (IllegalAccessException | InstantiationException | SQLException e) {
+            e.printStackTrace();
+        }
+
+        return "Error";
+
+    }
+
+    //+------Helper functions------+
     // Used the below link as a reference on how to initialize a generic class from the DB
     // https://dzone.com/articles/method-to-get-jdbc-result-set-into-given-generic-c
 
@@ -113,6 +163,4 @@ public class SqlSelect extends StatementCreation {
             throw new IllegalArgumentException(string);
         }
     }
-
-
 }

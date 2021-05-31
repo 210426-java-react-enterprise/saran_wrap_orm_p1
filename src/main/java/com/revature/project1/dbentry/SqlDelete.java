@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class SqlDelete extends SqlCrud {
+public class SqlDelete extends StatementCreation {
     public SqlDelete() {
         action = "delete from";
     }

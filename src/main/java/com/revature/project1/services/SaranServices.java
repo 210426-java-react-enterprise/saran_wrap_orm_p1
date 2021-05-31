@@ -1,9 +1,6 @@
 package com.revature.project1.services;
 
-import com.revature.project1.dbentry.SqlDelete;
-import com.revature.project1.dbentry.SqlInsert;
-import com.revature.project1.dbentry.SqlUpdate;
-import com.revature.project1.dbentry.SqlSelect;
+import com.revature.project1.dbentry.*;
 import com.revature.project1.util.ConnectionFactory;
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -11,9 +8,12 @@ import java.util.ArrayList;
 public class SaranServices {
 
     Connection conn;
+    SqlCreation sql;
 
-    public SaranServices(){
+    public SaranServices(SqlCreation sql){
         conn = ConnectionFactory.getInstance().getConnection();
+        System.out.println(conn);
+        this.sql = sql;
     }
 
     //Inserting one obj into a database

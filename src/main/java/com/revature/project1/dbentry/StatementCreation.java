@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public abstract class SqlCrud {
+public abstract class StatementCreation {
     protected Object obj;
     protected Entity entity;
     protected String tableName;
@@ -110,43 +110,31 @@ public abstract class SqlCrud {
         //.filter(e -> e.getAnnotation(Column.class).annotationType().getSimpleName().equals("Column"))
 
         //Get all the names of fields tagged with Column
-       List<String> names = Stream.of(clazz.getDeclaredFields())
-               .filter(e -> e.getAnnotation(Column.class).annotationType().getSimpleName().equals("Column"))
+        List<String> names = Stream.of(clazz.getDeclaredFields())
+                .filter(e -> e.getAnnotation(Column.class).annotationType().getSimpleName().equals("Column"))
                 .map(e -> e.getAnnotation(Column.class).name())
                 .collect(Collectors.toList());
 
-       for (Object name: names){
-           columnNames.add(String.valueOf(name));
-       }
-
-
-       if(action.equals("select") || action.equals("delete from")){
-           return;
-       }
-       List<String> values = Stream.of(clazz.getDeclaredFields())
-                        .filter(e -> e.getAnnotation(Column.class).annotationType().getSimpleName().equals("Column"))
-                        .map(e -> getValueofField(e))
-                        .collect(Collectors.toList());
-
-
-
-        for (Object value: values){
-            columnValues.add(String.valueOf(value));
+        for (Object name : names) {
+            columnNames.add(String.valueOf(name));
         }
 
-//        //Get all the fields in the pojo
-//        for (Field fields : clazz.getDeclaredFields()) {
-//
-//            for (Annotation anno: fields.getAnnotations()){
-//                if(anno.annotationType().getSimpleName().equals("Column")){
-//                   // columnNames.add(fields.getName());
-//                    fields.setAccessible(true);
-//                    columnValues.add(fields.get(obj).toString());
-//                    fields.setAccessible(false);
-//                }
-//            }
-//        }
+
+        if (action.equals("select") || action.equals("delete from")) {
+            return;
+        }
+        List<String> values = Stream.of(clazz.getDeclaredFields())
+                .filter(e -> e.getAnnotation(Column.class).annotationType().getSimpleName().equals("Column"))
+                .map(e -> getValueofField(e))
+                .collect(Collectors.toList());
+
+
+        for (Object value : values) {
+            columnValues.add(String.valueOf(value));
+        }
     }
+
+
 
     public String getValueofField(Field e){
 

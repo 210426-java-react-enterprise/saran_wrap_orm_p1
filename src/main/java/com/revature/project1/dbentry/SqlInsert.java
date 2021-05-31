@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 
-public class SqlInsert extends SqlCrud {
+public class SqlInsert extends StatementCreation {
     public SqlInsert() {
         action = "insert into";
     }
