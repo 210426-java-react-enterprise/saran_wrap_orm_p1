@@ -21,6 +21,9 @@ public class SaranServices {
 
     public String insertInDB(Object obj){
 
+        if(obj == null){
+            throw new NullPointerException("Null objects can't be put into the database");
+        }
         sql.insertNewObject(obj, conn);
 
         return sql.getStatement();
@@ -29,6 +32,10 @@ public class SaranServices {
     //Updating one row/object in a database
     public String updateObject(Object obj, String key, String value) {
 
+        if(obj == null){
+            throw new NullPointerException("Null objects can't be updated in the database");
+        }
+
         sql.setCondition(key, value);
         sql.update(obj, conn);
         return sql.getStatement();
@@ -36,12 +43,20 @@ public class SaranServices {
 
     public String updateObject(Object obj, String condition) {
 
+        if(obj == null){
+            throw new NullPointerException("Null objects can't be updated in the database");
+        }
+
         sql.setCondition(condition);
         sql.update(obj, conn);
         return sql.getStatement();
     }
 
     public <T> ArrayList<T> SelectDB(Class<T> obj, String condition){
+
+        if(obj == null){
+            throw new NullPointerException("Can't determine the obj container for db because of a null class");
+        }
 
         ArrayList<T> DBObjects = new ArrayList<>();
 
@@ -52,6 +67,10 @@ public class SaranServices {
 
     public <T> ArrayList<T> SelectAllDB(Class<T> obj){
 
+        if(obj == null){
+            throw new NullPointerException("Can't determine the obj container for db because of a null class");
+        }
+
         ArrayList<T> allDBObjects = new ArrayList<>();
 
         allDBObjects = sql.selectAll(obj, conn);
@@ -61,6 +80,10 @@ public class SaranServices {
     }
 
     public <T> String deleteDB(Class<T> obj, String condition){
+
+        if(obj == null){
+            throw new NullPointerException("Can't determine the obj container for db because of a null class");
+        }
 
         String rowsDeleted = sql.delete(obj, condition, conn);
 
