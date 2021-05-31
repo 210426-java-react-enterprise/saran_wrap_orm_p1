@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public class SqlCreation extends StatementCreation{
 
     public void insertNewObject(Object obj, Connection conn) {
+        statementSetup();
         action = "insert into";
         Statement stmt = null;
         try {
@@ -31,7 +32,7 @@ public class SqlCreation extends StatementCreation{
     }
 
     public <T> ArrayList<T> select(Class<T> obj, String condition, Connection conn) {
-        StatmentSetup();
+        statementSetup();
         System.out.println("Select some");
         action = "select";
         ArrayList<T> temp = new ArrayList<>();
@@ -64,7 +65,7 @@ public class SqlCreation extends StatementCreation{
     }
 
     public <T> ArrayList<T> selectAll(Class<T> obj, Connection conn){
-        StatmentSetup();
+        statementSetup();
         System.out.println("select All");
         action = "select";
         ArrayList<T> temp = new ArrayList<>();
@@ -93,6 +94,23 @@ public class SqlCreation extends StatementCreation{
         return temp;
     }
 
+    public void update(Object obj, String condition, Connection conn)  {
+        statementSetup();
+        action = "update";
+        this.condition = condition;
+        Statement stmt = null;
+
+        try {
+            setStatement(obj, condition);
+            stmt = conn.createStatement();
+            stmt.executeUpdate(statement);
+        } catch (IllegalAccessException | SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Ran SQL UPDATE command");
+    }
+
+    //Requires the setCondition(...) method to be called first
     public void update(Object obj, Connection conn)  {
         action = "update";
         Statement stmt = null;
@@ -108,6 +126,7 @@ public class SqlCreation extends StatementCreation{
     }
 
     public <T> String delete(Class<T> obj, String condition, Connection conn){
+        statementSetup();
         action = "delete from";
         this.condition = condition;
         Statement stmt = null;

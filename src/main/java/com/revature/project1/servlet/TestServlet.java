@@ -18,7 +18,7 @@ public class TestServlet extends HttpServlet {
         SaranServices saranwrap = new SaranServices(new SqlCreation());
 
 
-        String str = saranwrap.deleteDB(AppUser.class, "username = 'gtomasel'");
+        String str = saranwrap.deleteObject(AppUser.class, "username = 'gtomasel'");
         resp.getWriter().write("<h1>/Delete DB obj Success!</h1>");
         resp.getWriter().write(str);
     }
@@ -29,13 +29,13 @@ public class TestServlet extends HttpServlet {
 
         SaranServices saranwrap = new SaranServices(new SqlCreation());
 
-        ArrayList<AppUser> DBObjects = saranwrap.SelectDB(AppUser.class, "username = 'cTest'");
+        ArrayList<AppUser> DBObjects = saranwrap.selectObject(AppUser.class, "username = 'cTest'");
         resp.getWriter().write("<h1>/Testing generic select specific!</h1>\n");
         for (AppUser user : DBObjects){
             resp.getWriter().write(user.toString() + " \n");
         }
 
-        ArrayList<AppUser> allDBObject = saranwrap.SelectAllDB(AppUser.class);
+        ArrayList<AppUser> allDBObject = saranwrap.selectAllObjects(AppUser.class);
         resp.getWriter().write("<h1>/Testing generic select all!</h1>\n");
         for (AppUser user : allDBObject){
             resp.getWriter().write(user.toString() + " \n");
@@ -48,7 +48,7 @@ public class TestServlet extends HttpServlet {
         SaranServices saranwrap = new SaranServices(new SqlCreation());
         Object userObj = new AppUser("cTest", "Passw0rd", "cTest@mail.com", "Calex", "Tester", 23);
 
-        String str = saranwrap.insertInDB(userObj);
+        String str = saranwrap.insertObject(userObj);
         resp.getWriter().write("<h1>/Inserted Into DB String Success!</h1>");
         resp.getWriter().write(str);
     }

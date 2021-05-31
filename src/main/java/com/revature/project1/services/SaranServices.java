@@ -18,7 +18,7 @@ public class SaranServices {
 
 
     //Inserting one obj into a database
-    public String insertInDB(Object obj){
+    public String insertObject(Object obj){
 
         sql.insertNewObject(obj, conn);
 
@@ -42,7 +42,7 @@ public class SaranServices {
         return sql.getStatement();
     }
 
-    public <T> ArrayList<T> SelectDB(Class<T> obj, String condition){
+    public <T> ArrayList<T> selectObject(Class<T> obj, String condition){
 
         ArrayList<T> DBObjects = new ArrayList<>();
 
@@ -51,7 +51,7 @@ public class SaranServices {
         return DBObjects;
     }
 
-    public <T> ArrayList<T> SelectAllDB(Class<T> obj){
+    public <T> ArrayList<T> selectAllObjects(Class<T> obj){
 
 
         ArrayList<T> allDBObjects = new ArrayList<>();
@@ -62,7 +62,7 @@ public class SaranServices {
         return allDBObjects;
     }
 
-    public <T> String deleteDB(Class<T> obj, String condition){
+    public <T> String deleteObject(Class<T> obj, String condition){
 
 
         String rowsDeleted = sql.delete(obj, condition, conn);

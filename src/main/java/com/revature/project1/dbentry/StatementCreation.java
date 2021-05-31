@@ -87,7 +87,7 @@ public abstract class StatementCreation {
         setStatement(obj);
     }
 
-    public void StatmentSetup(){
+    public void statementSetup(){
         this.statement = null;
         this.condition = null;
     }
@@ -139,8 +139,6 @@ public abstract class StatementCreation {
         }
     }
 
-
-
     public String getValueofField(Field e){
 
         String temp = "";
@@ -174,7 +172,9 @@ public abstract class StatementCreation {
     public void setCondition(String key, String value) {
         condition = key + "=" + "'" + value + "'";
     }
-
+    public void setCondition(String key, float value) {
+        condition = key + "=" + value;
+    }
     public void setCondition(String key, int value) {
         condition = key + "=" + value;
     }
