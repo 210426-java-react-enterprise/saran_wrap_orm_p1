@@ -7,17 +7,16 @@ import com.revature.project1.annotations.Id;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public abstract class SqlCrud {
+public abstract class StatementCreation {
     protected Object obj;
     protected Entity entity;
     protected String tableName;
-    protected String condition;
+    protected String condition; // "uniqueFieldName = uniqueFieldValue"
     protected String statement;
     protected String action;
     protected HashMap<String, Object> data;
@@ -66,7 +65,7 @@ public abstract class SqlCrud {
                 String s = ""; // "column1=value1, column2=value2, ..."
                 for (int i = 0; i < columnNames.size(); i++) {
 
-                        s += columnNames.get(i) + "=" + columnValues.get(i);
+                        s += columnNames.get(i) + "=" + "'" + columnValues.get(i)+ "'";
                     if (i < columnNames.size()-1) {
                         s += ", ";
                     }
@@ -86,6 +85,11 @@ public abstract class SqlCrud {
     public void setStatement(Object obj, String condition) throws IllegalAccessException {
         this.condition = condition;
         setStatement(obj);
+    }
+
+    public void StatmentSetup(){
+        this.statement = null;
+        this.condition = null;
     }
 
     public boolean setTableName() {
@@ -110,44 +114,32 @@ public abstract class SqlCrud {
 
         //.filter(e -> e.getAnnotation(Column.class).annotationType().getSimpleName().equals("Column"))
 
-        //Get all the names of fields taged with Column
-       List<String> names = Stream.of(clazz.getDeclaredFields())
-               .filter(e -> e.getAnnotation(Column.class).annotationType().getSimpleName().equals("Column"))
+        //Get all the names of fields tagged with Column
+        List<String> names = Stream.of(clazz.getDeclaredFields())
+                .filter(e -> e.getAnnotation(Column.class).annotationType().getSimpleName().equals("Column"))
                 .map(e -> e.getAnnotation(Column.class).name())
                 .collect(Collectors.toList());
 
-       for (Object name: names){
-           columnNames.add(String.valueOf(name));
-       }
-
-
-       if(action.equals("select") || action.equals("delete from")){
-           return;
-       }
-       List<String> values = Stream.of(clazz.getDeclaredFields())
-                        .filter(e -> e.getAnnotation(Column.class).annotationType().getSimpleName().equals("Column"))
-                        .map(e -> getValueofField(e))
-                        .collect(Collectors.toList());
-
-
-
-        for (Object value: values){
-            columnValues.add(String.valueOf(value));
+        for (Object name : names) {
+            columnNames.add(String.valueOf(name));
         }
 
-//        //Get all the fields in the pojo
-//        for (Field fields : clazz.getDeclaredFields()) {
-//
-//            for (Annotation anno: fields.getAnnotations()){
-//                if(anno.annotationType().getSimpleName().equals("Column")){
-//                   // columnNames.add(fields.getName());
-//                    fields.setAccessible(true);
-//                    columnValues.add(fields.get(obj).toString());
-//                    fields.setAccessible(false);
-//                }
-//            }
-//        }
+
+        if (action.equals("select") || action.equals("delete from")) {
+            return;
+        }
+        List<String> values = Stream.of(clazz.getDeclaredFields())
+                .filter(e -> e.getAnnotation(Column.class).annotationType().getSimpleName().equals("Column"))
+                .map(e -> getValueofField(e))
+                .collect(Collectors.toList());
+
+
+        for (Object value : values) {
+            columnValues.add(String.valueOf(value));
+        }
     }
+
+
 
     public String getValueofField(Field e){
 
@@ -176,5 +168,14 @@ public abstract class SqlCrud {
         return clazz;
     }
 
+    public void setCondition(String condition) {
+        this.condition = condition;
+    }
+    public void setCondition(String key, String value) {
+        condition = key + "=" + "'" + value + "'";
+    }
 
+    public void setCondition(String key, int value) {
+        condition = key + "=" + value;
+    }
 }

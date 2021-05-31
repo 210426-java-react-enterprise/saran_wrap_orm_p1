@@ -1,5 +1,6 @@
 package com.revature.project1.servlet;
 
+import com.revature.project1.dbentry.SqlCreation;
 import com.revature.project1.models.AppUser;
 import com.revature.project1.services.SaranServices;
 import com.revature.project1.util.ConnectionFactory;
@@ -16,9 +17,7 @@ public class TestServlet extends HttpServlet {
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws IOException{
 
-        Connection conn = ConnectionFactory.getInstance().getConnection();
-        SaranServices saranwrap = new SaranServices();
-
+        SaranServices saranwrap = new SaranServices(new SqlCreation());
 
         String str = saranwrap.deleteDB(AppUser.class, "username = 'gtomasel'");
         resp.getWriter().write("<h1>/Delete DB obj Success!</h1>");
@@ -29,9 +28,9 @@ public class TestServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
-        SaranServices saranwrap = new SaranServices();
+        SaranServices saranwrap = new SaranServices(new SqlCreation());
 
-        ArrayList<AppUser> DBObjects = saranwrap.SelectDB(AppUser.class, "username = 'gtomasel'");
+        ArrayList<AppUser> DBObjects = saranwrap.SelectDB(AppUser.class, "username = 'cTest'");
         resp.getWriter().write("<h1>/Testing generic select specific!</h1>\n");
         for (AppUser user : DBObjects){
             resp.getWriter().write(user.toString() + " \n");
@@ -47,7 +46,7 @@ public class TestServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        SaranServices saranwrap = new SaranServices();
+        SaranServices saranwrap = new SaranServices(new SqlCreation());
         Object userObj = new AppUser("cTest", "Passw0rd", "cTest@mail.com", "Calex", "Tester", 23);
 
         saranwrap.insertInDB(userObj);
@@ -55,4 +54,12 @@ public class TestServlet extends HttpServlet {
         resp.getWriter().write(String.valueOf(userObj));
     }
 
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        SaranServices saranwrap = new SaranServices(new SqlCreation());
+        Object userObj = new AppUser("updateTester", "Passw0rd", "update@mail.com", "Upper", "Datelly", 18);
+
+        String str = saranwrap.updateObject(userObj, "username = 'updateTester'");
+        resp.getWriter().write("<h1>/Update Success!</h1>");
+        resp.getWriter().write(str);
+    }
 }

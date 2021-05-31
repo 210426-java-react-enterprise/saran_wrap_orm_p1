@@ -1,90 +1,75 @@
 package com.revature.project1.services;
 
-import com.revature.project1.dbentry.SqlDelete;
-import com.revature.project1.dbentry.SqlInsert;
-
-import com.revature.project1.models.AppUser;
-import com.revature.project1.dbentry.SqlSelect;
+import com.revature.project1.dbentry.*;
 import com.revature.project1.util.ConnectionFactory;
-
 import java.sql.Connection;
 import java.util.ArrayList;
 
 public class SaranServices {
 
     Connection conn;
+    SqlCreation sql;
 
-    public SaranServices(){
-
+    public SaranServices(SqlCreation sql){
+        conn = ConnectionFactory.getInstance().getConnection();
+        System.out.println(conn);
+        this.sql = sql;
     }
 
+
     //Inserting one obj into a database
-    public void insertInDB(Object obj){
 
-        if(obj == null){
-            throw new NullPointerException();
-        }
+    public String insertInDB(Object obj){
 
-        SqlInsert insertTest = new SqlInsert();
+        sql.insertNewObject(obj, conn);
 
-        try {
-            insertTest.testNothing("test");
-            insertTest.insertNewObject(obj, conn);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
+        //AppUser test = (AppUser) obj;
 
-        return;
+        return sql.getStatement();
+    }
+
+    //Updating one row/object in a database
+    public String updateObject(Object obj, String key, String value) {
+
+        sql.setCondition(key, value);
+        sql.update(obj, conn);
+        return sql.getStatement();
+    }
+
+    public String updateObject(Object obj, String condition) {
+
+        sql.setCondition(condition);
+        sql.update(obj, conn);
+        return sql.getStatement();
     }
 
     public <T> ArrayList<T> SelectDB(Class<T> obj, String condition){
 
-        if(obj == null){
-            throw new NullPointerException();
-        }
-
-        SqlSelect selectTest = new SqlSelect();
         ArrayList<T> DBObjects = new ArrayList<>();
 
-        try {
-            DBObjects = selectTest.select(obj, condition, conn);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
+        DBObjects = sql.select(obj, condition, conn);
 
         return DBObjects;
     }
 
     public <T> ArrayList<T> SelectAllDB(Class<T> obj){
 
-        if(obj == null){
-            throw new NullPointerException();
-        }
-
-        SqlSelect selectTest = new SqlSelect();
         ArrayList<T> allDBObjects = new ArrayList<>();
 
-        try {
-            allDBObjects = selectTest.selectAll(obj, conn);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
+        allDBObjects = sql.selectAll(obj, conn);
 
+        System.out.println(allDBObjects);
         return allDBObjects;
     }
 
     public <T> String deleteDB(Class<T> obj, String condition){
 
-        if(obj == null){
-            throw new NullPointerException();
-        }
-
-        SqlDelete sqlDelete = new SqlDelete();
-
-        String rowsDeleted = sqlDelete.delete(obj, condition, conn);
+        String rowsDeleted = sql.delete(obj, condition, conn);
 
         return rowsDeleted;
 
     }
+
+
 
 }

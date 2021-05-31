@@ -1,11 +1,10 @@
 package com.revature.project1.dbentry;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class SqlDelete extends SqlCrud {
+public class SqlDelete extends StatementCreation {
     public SqlDelete() {
         action = "delete from";
     }
@@ -18,14 +17,10 @@ public class SqlDelete extends SqlCrud {
             setStatement(obj.newInstance());
             stmt = conn.createStatement();
             String rowsDeleted = String.valueOf(stmt.executeUpdate(statement));
-
+            System.out.println("Ran SQL DELETE command.");
             return rowsDeleted;
-        } catch (IllegalAccessException e) {
+        } catch (IllegalAccessException | InstantiationException | SQLException e) {
             e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
         }
 
         return "Error";
