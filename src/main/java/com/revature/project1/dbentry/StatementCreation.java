@@ -87,6 +87,11 @@ public abstract class StatementCreation {
         setStatement(obj);
     }
 
+    public void StatmentSetup(){
+        this.statement = null;
+        this.condition = null;
+    }
+
     public boolean setTableName() {
         //Gets the class of the obj and uses the annotation to get the table name
         Class<?> clazz = obj.getClass();

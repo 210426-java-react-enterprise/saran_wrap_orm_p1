@@ -29,7 +29,7 @@ public class TestServlet extends HttpServlet {
 
         SaranServices saranwrap = new SaranServices(new SqlCreation());
 
-        ArrayList<AppUser> DBObjects = saranwrap.SelectDB(AppUser.class, "username = 'gtomasel'");
+        ArrayList<AppUser> DBObjects = saranwrap.SelectDB(AppUser.class, "username = 'cTest'");
         resp.getWriter().write("<h1>/Testing generic select specific!</h1>\n");
         for (AppUser user : DBObjects){
             resp.getWriter().write(user.toString() + " \n");

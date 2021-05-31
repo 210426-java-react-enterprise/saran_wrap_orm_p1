@@ -31,14 +31,19 @@ public class SqlCreation extends StatementCreation{
     }
 
     public <T> ArrayList<T> select(Class<T> obj, String condition, Connection conn) {
+        StatmentSetup();
+        System.out.println("Select some");
         action = "select";
         ArrayList<T> temp = new ArrayList<>();
+        this.statement = null;
+
 
         this.condition = condition;
         Statement stmt = null;
 
         try {
             setStatement(obj.newInstance());
+            System.out.println(statement);
             stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(statement);
             System.out.println(rs.toString());
@@ -59,13 +64,17 @@ public class SqlCreation extends StatementCreation{
     }
 
     public <T> ArrayList<T> selectAll(Class<T> obj, Connection conn){
+        StatmentSetup();
+        System.out.println("select All");
         action = "select";
         ArrayList<T> temp = new ArrayList<>();
+        this.statement = null;
 
         Statement stmt = null;
 
         try {
             setStatement(obj.newInstance());
+            System.out.println(statement);
             stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(statement);
             System.out.println(rs.toString());

@@ -16,56 +16,61 @@ public class SaranServices {
         this.sql = sql;
     }
 
+
     //Inserting one obj into a database
     public String insertInDB(Object obj){
-        SqlInsert insertTest = new SqlInsert();
-        insertTest.insertNewObject(obj, conn);
+
+        sql.insertNewObject(obj, conn);
 
         //AppUser test = (AppUser) obj;
 
-        return insertTest.getStatement();
+        return sql.getStatement();
     }
 
     //Updating one row/object in a database
     public String updateObject(Object obj, String key, String value) {
-        SqlUpdate updateTest = new SqlUpdate();
-        updateTest.setCondition(key, value);
-        updateTest.update(obj, conn);
-        return updateTest.getStatement();
+
+        sql.setCondition(key, value);
+        sql.update(obj, conn);
+        return sql.getStatement();
     }
 
     public String updateObject(Object obj, String condition) {
-        SqlUpdate updateTest = new SqlUpdate();
-        updateTest.setCondition(condition);
-        updateTest.update(obj, conn);
-        return updateTest.getStatement();
+
+        sql.setCondition(condition);
+        sql.update(obj, conn);
+        return sql.getStatement();
     }
 
     public <T> ArrayList<T> SelectDB(Class<T> obj, String condition){
-        SqlSelect selectTest = new SqlSelect();
+
         ArrayList<T> DBObjects = new ArrayList<>();
 
-        DBObjects = selectTest.select(obj, condition, conn);
+        DBObjects = sql.select(obj, condition, conn);
 
         return DBObjects;
     }
 
     public <T> ArrayList<T> SelectAllDB(Class<T> obj){
-        SqlSelect selectTest = new SqlSelect();
+
+
         ArrayList<T> allDBObjects = new ArrayList<>();
 
-        allDBObjects = selectTest.selectAll(obj, conn);
+        allDBObjects = sql.selectAll(obj, conn);
 
+        System.out.println(allDBObjects);
         return allDBObjects;
     }
 
     public <T> String deleteDB(Class<T> obj, String condition){
-        SqlDelete sqlDelete = new SqlDelete();
 
-        String rowsDeleted = sqlDelete.delete(obj, condition, conn);
+
+        String rowsDeleted = sql.delete(obj, condition, conn);
 
         return rowsDeleted;
 
     }
+
+
 
 }
