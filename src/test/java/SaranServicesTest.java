@@ -8,6 +8,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.sql.Connection;
 import java.util.ArrayList;
 
 import static org.mockito.Mockito.*;
@@ -16,22 +17,22 @@ public class SaranServicesTest {
 
     private SaranServices sut;
     private SqlCreation mockSqlCreation;
-    private ConnectionFactory mockConnectionFactory;
+    private Connection mockConnection;
 
 
     @Before
     public void setUp(){
 
         mockSqlCreation = mock(SqlCreation.class);
-        mockConnectionFactory = mock(ConnectionFactory.class);
-        sut = new SaranServices(mockSqlCreation, mockConnectionFactory.getConnection());
+        mockConnection = mock(Connection.class);
+        sut = new SaranServices(mockSqlCreation, mockConnection);
     }
 
     @After
     public void tearDown(){
         sut = null;
         mockSqlCreation = null;
-        mockConnectionFactory = null;
+        mockConnection = null;
     }
 
     @Test (expected = NullPointerException.class)
@@ -59,18 +60,20 @@ public class SaranServicesTest {
     }
 
     @Test (expected = NullPointerException.class)
-    public void  test_UpdateDB_WithNull(){
+    public void  test_UpdateDBWithKey_WithNull(){
 
-        sut.updateObject(null, anyString());
+        sut.updateObject(null, "", "");
 
     }
 
     @Test (expected = NullPointerException.class)
-    public void  test_UpdateDBWithKey_WithNull(){
+    public void  test_UpdateDB_WithNull(){
 
-        sut.updateObject(null, anyString(), anyString());
+        sut.updateObject(null, "");
 
     }
+
+
 
     @Test
     public void mockTest_UpdateDB_WithValid() {
@@ -111,7 +114,7 @@ public class SaranServicesTest {
     @Test (expected = NullPointerException.class)
     public void  test_SelectDB_WithNull(){
 
-        sut.SelectDB(null, anyString());
+        sut.SelectDB(null, "");
 
     }
 
@@ -155,7 +158,7 @@ public class SaranServicesTest {
     @Test (expected = NullPointerException.class)
     public void  test_Delete_WithNull(){
 
-        sut.deleteDB(null, anyString());
+        sut.deleteDB(null,"");
 
     }
 
