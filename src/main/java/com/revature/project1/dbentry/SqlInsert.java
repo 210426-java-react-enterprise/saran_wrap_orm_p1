@@ -11,12 +11,13 @@ public class SqlInsert extends StatementCreation {
         action = "insert into";
     }
 
+
     public void insertNewObject(Object obj, Connection conn) {
 
         Statement stmt = null;
         try {
+
             setStatement(obj);
-            //System.out.println(statement);
             stmt = conn.createStatement();
 
             int rowsInserted = stmt.executeUpdate(statement);
