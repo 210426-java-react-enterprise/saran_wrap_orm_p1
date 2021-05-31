@@ -1,21 +1,19 @@
 package com.revature.project1.dbentry;
 
 import com.revature.project1.annotations.Column;
-import com.revature.project1.dbentry.SqlCrud;
-
 import java.lang.reflect.Field;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.Statement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class SqlSelect extends SqlCrud {
     public SqlSelect() {
         action = "select";
     }
 
-    public <T> ArrayList<T> select(Class<T> obj, String condition, Connection conn) throws IllegalAccessException {
+    public <T> ArrayList<T> select(Class<T> obj, String condition, Connection conn) {
 
         ArrayList<T> temp = new ArrayList<>();
 
@@ -35,14 +33,15 @@ public class SqlSelect extends SqlCrud {
 
             }
 
-        } catch (SQLException | InstantiationException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException | InstantiationException | IllegalAccessException e) {
+            e.printStackTrace();
         }
 
+        System.out.println("Ran SQL SELECT command. Returning results.");
         return temp;
     }
 
-    public <T> ArrayList<T> selectAll(Class<T> obj, Connection conn) throws IllegalAccessException {
+    public <T> ArrayList<T> selectAll(Class<T> obj, Connection conn){
 
 
         ArrayList<T> temp = new ArrayList<>();
@@ -62,8 +61,8 @@ public class SqlSelect extends SqlCrud {
 
             }
 
-        } catch (SQLException | InstantiationException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException | InstantiationException | IllegalAccessException e) {
+            e.printStackTrace();
         }
 
         return temp;

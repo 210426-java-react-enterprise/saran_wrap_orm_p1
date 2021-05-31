@@ -52,4 +52,12 @@ public class TestServlet extends HttpServlet {
         resp.getWriter().write(str);
     }
 
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        SaranServices saranwrap = new SaranServices();
+        Object userObj = new AppUser("updateTester", "Passw0rd", "update@mail.com", "Upper", "Datelly", 18);
+
+        String str = saranwrap.updateObject(userObj, "username = 'updateTester'");
+        resp.getWriter().write("<h1>/Update Success!</h1>");
+        resp.getWriter().write(str);
+    }
 }
