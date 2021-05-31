@@ -1,3 +1,4 @@
+import com.revature.project1.dbentry.SqlCreation;
 import com.revature.project1.dbentry.SqlInsert;
 import com.revature.project1.models.AppUser;
 import com.revature.project1.services.SaranServices;
@@ -12,19 +13,20 @@ import static org.mockito.Mockito.*;
 public class SaranServicesTest {
 
     private SaranServices sut;
-    private SqlInsert mockSqlInsert;
+    private SqlCreation mockSqlCreation;
 
 
     @Before
     public void setUp(){
-        sut = new SaranServices();
-        mockSqlInsert = mock(SqlInsert.class);
+
+        mockSqlCreation = mock(SqlCreation.class);
+        sut = new SaranServices(mockSqlCreation);
     }
 
     @After
     public void tearDown(){
         sut = null;
-        mockSqlInsert = null;
+        mockSqlCreation = null;
     }
 
     @Test (expected = NullPointerException.class)
@@ -46,8 +48,8 @@ public class SaranServicesTest {
     @Test
     public void mockTest_InsertDB_WithValid() throws IllegalAccessException {
 
-        doNothing().when(mockSqlInsert).testNothing(anyString());
-        doNothing().when(mockSqlInsert).insertNewObject(any(), any());
+
+        doNothing().when(mockSqlCreation).insertNewObject(any(), any());
 
 
 
@@ -56,8 +58,8 @@ public class SaranServicesTest {
         sut.insertInDB(test);
 
 
-        verify(mockSqlInsert, times(1)).testNothing(anyString());
-        verify(mockSqlInsert, times(1)).insertNewObject(any(), any());
+
+        verify(mockSqlCreation, times(1)).insertNewObject(any(), any());
     }
 
 }

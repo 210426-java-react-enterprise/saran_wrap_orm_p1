@@ -23,8 +23,6 @@ public class SaranServices {
 
         sql.insertNewObject(obj, conn);
 
-        //AppUser test = (AppUser) obj;
-
         return sql.getStatement();
     }
 
