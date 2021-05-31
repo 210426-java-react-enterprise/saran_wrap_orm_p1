@@ -7,25 +7,8 @@
     <groupId>com.revature</groupId>
     <artifactId>saranwrap-orm</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>war</packaging>
-    <build>
-        <finalName>saranwrap-orm</finalName>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.tomcat.maven</groupId>
-                    <artifactId>tomcat7-maven-plugin</artifactId>
-                    <version>2.2</version>
-                    <configuration>
-                        <url>http://localhost:8080/manager/text</url>
-                        <server>LocalTomcat</server>
-                        <path>/saranwrap</path>
-                        <update>true</update>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-    </build>
+    <packaging>jar</packaging>
+
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
@@ -62,14 +45,6 @@
             <artifactId>mockito-inline</artifactId>
             <version>3.9.0</version>
             <scope>test</scope>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>3.1.0</version>
-            <scope>provided</scope>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
