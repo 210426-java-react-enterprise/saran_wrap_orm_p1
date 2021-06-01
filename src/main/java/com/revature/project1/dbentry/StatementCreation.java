@@ -62,16 +62,20 @@ public abstract class StatementCreation {
 
                 break;
             case "update":
-                String s = ""; // "column1=value1, column2=value2, ..."
-                for (int i = 0; i < columnNames.size(); i++) {
+                StringBuilder s = new StringBuilder(); // "column1=value1, column2=value2, ..."
+                for (int i = 0; i < columnValues.size(); i++) {
 
-                        s += columnNames.get(i) + "=" + "'" + columnValues.get(i)+ "'";
-                    if (i < columnNames.size()-1) {
-                        s += ", ";
+                        s.append(columnNames.get(i))
+                         .append("=")
+                         .append("'")
+                         .append(columnValues.get(i))
+                         .append("'");
+                    if (i < columnValues.size()-1) {
+                        s.append(", ");
                     }
                 }
                 //statement = "{action} {tableName} set {columnName=columnValues} where ({condition})"; // update format
-                statement = String.format("%s %s set %s where (%s)", action, tableName, s, condition);
+                statement = String.format("%s %s set %s where (%s)", action, tableName, s.toString(), condition);
                 break;
             case "delete from":
                 //statement = "{action} {tableName} where ({condition})"; // delete format
