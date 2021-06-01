@@ -11,6 +11,23 @@ import java.util.ArrayList;
 
 public class SqlCreation extends StatementCreation{
 
+    public ResultSet customSqlCommand(String command, Connection conn) {
+        Statement stmt;
+        ResultSet rs = null;
+
+        try {
+            statement = command;
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(statement);
+            System.out.println("Ran CUSTOM SQL command:\n"+statement);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return rs;
+    }
+
+
     public void insertNewObject(Object obj, Connection conn) {
         statementSetup();
         action = "insert into";

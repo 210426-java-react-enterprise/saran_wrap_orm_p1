@@ -3,6 +3,7 @@ package com.revature.project1.services;
 import com.revature.project1.dbentry.*;
 import com.revature.project1.util.ConnectionFactory;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 public class SaranServices {
@@ -95,6 +96,8 @@ public class SaranServices {
 
     }
 
-
+    public ResultSet customCommand(String command) {
+        return sql.customSqlCommand(command, conn);
+    }
 
 }

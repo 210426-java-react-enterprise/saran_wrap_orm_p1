@@ -89,7 +89,6 @@ public class AppUser {
         return String.format("%s;%s;%s;%s;%s;%d", username, password, email, firstName, lastName, age);
     }
 
-
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("AppUser{");
