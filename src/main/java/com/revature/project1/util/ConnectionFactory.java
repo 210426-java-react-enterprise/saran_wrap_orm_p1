@@ -1,6 +1,8 @@
 package com.revature.project1.util;
 
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -36,33 +38,24 @@ public class ConnectionFactory {
 
     //this function loads our properties file (which holds our database credentials)
     private ConnectionFactory(){
-        /*
-        // commented out because we're using system variables
-        try {
-            props.load(new FileReader("src/main/resources/application.properties"));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+
+        try{
+            InputStream input = Thread.currentThread().getContextClassLoader().getResourceAsStream("application.properties");
+
+            props.load(input);
+
+        } catch (IOException e){
             e.printStackTrace();
         }
-         */
     }
 
     public Connection getConnection(){
         Connection conn = null;
         try{
-            /*
             conn = DriverManager.getConnection(
-                    System.getenv("host-url"),
-                    System.getenv("username"),
-                    System.getenv("password")
-            );
-            */
-
-            conn = DriverManager.getConnection(
-                    System.getenv("host-url"),
-                    System.getenv("username"),
-                    System.getenv("password")
+                    props.getProperty("host-url"),
+                    props.getProperty("username"),
+                    props.getProperty("password")
             );
 
 
@@ -70,6 +63,7 @@ public class ConnectionFactory {
             sqle.printStackTrace();
 
         }
+
         return conn;
     }
 }

@@ -5,7 +5,7 @@ import com.revature.project1.annotations.Entity;
 import com.revature.project1.annotations.Id;
 
 //@Table
-@Entity(name = "app_users")
+@Entity(name = "customer")
 public class AppUser {
     @Id
     @Column(name = "user_id")
@@ -88,7 +88,6 @@ public class AppUser {
     public String toFileString() {
         return String.format("%s;%s;%s;%s;%s;%d", username, password, email, firstName, lastName, age);
     }
-
 
     @Override
     public String toString() {
