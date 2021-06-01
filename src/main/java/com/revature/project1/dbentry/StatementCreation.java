@@ -35,13 +35,13 @@ public abstract class StatementCreation {
             case "insert into":
                 String s1 = ""; // "column1, column2, column3, ..."
                 String s2 = ""; // "value1, value2, value3, ..."
-                for (int i = 0; i < columnNames.size(); i++) {
+                for (int i = 0; i < columnValues.size(); i++) {
                     if(!columnNames.get(i).equals("user_id")){
 
                         s1 += columnNames.get(i);
                         s2 += "'" + columnValues.get(i) + "'";
 
-                        if (i < columnNames.size()-1) {
+                        if (i < columnValues.size()-1) {
                             s1 += ", ";
                             s2 += ", ";
                         }
